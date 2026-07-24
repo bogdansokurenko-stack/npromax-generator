@@ -618,6 +618,143 @@ h1{font-size:34px}h2{font-size:26px}
  .sticky-cta .btn{flex:1;min-height:44px}
  body.has-sticky-cta{padding-bottom:76px}
 }
+
+/* ==================== ПРЕМІУМ-ЛЕНДИНГ ОРЕНДИ (rental hub v2) ==================== */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.rh-wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.rh-sec{padding:76px 0}
+.rh-sec.tight{padding-top:0}
+.rh-head{text-align:center;max-width:720px;margin:0 auto 44px}
+.rh-kicker{font-size:12px;letter-spacing:2.5px;font-weight:700;color:var(--orange);margin-bottom:12px}
+.rh-head h2{font-size:clamp(26px,3.4vw,40px);line-height:1.12;letter-spacing:-.5px;margin:0 0 12px}
+.rh-head .rh-hsub{color:var(--muted);font-size:16.5px;line-height:1.55}
+
+/* HERO */
+.rh-hero{position:relative;background:radial-gradient(130% 130% at 88% -10%,#3c2517 0%,var(--espresso) 58%);color:#fff;overflow:hidden}
+.rh-hero::before{content:"";position:absolute;top:-25%;right:-8%;width:560px;height:560px;background:radial-gradient(circle,rgba(238,122,14,.34),transparent 62%);pointer-events:none}
+.rh-hero-in{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:66px 20px 78px;max-width:var(--wrap);margin:0 auto}
+.rh-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:2.5px;font-weight:700;color:#ffd9ad;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:7px 15px;border-radius:999px;margin-bottom:22px}
+.rh-hero h1{font-size:clamp(33px,5vw,58px);line-height:1.04;letter-spacing:-1px;margin:0 0 18px;font-weight:800}
+.rh-hero h1 .hl{color:var(--orange)}
+.rh-hero .rh-lead{font-size:clamp(16px,1.55vw,19px);line-height:1.55;color:#e8ddd2;max-width:540px;margin-bottom:22px}
+.rh-fire{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(238,122,14,.20),rgba(238,122,14,0));border-left:3px solid var(--orange);padding:13px 17px;border-radius:0 12px 12px 0;margin-bottom:28px;font-size:15px;line-height:1.4}
+.rh-fire b{color:#fff}
+.rh-herocta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.rh-trust{display:flex;gap:22px;flex-wrap:wrap;font-size:13.5px;color:#cdbfb2}
+.rh-trust span{display:inline-flex;align-items:center;gap:7px}
+.rh-trust svg{width:16px;height:16px;color:var(--orange)}
+.rh-hero-vis{position:relative;display:flex;justify-content:center}
+.rh-frame{position:relative;background:linear-gradient(158deg,#fbf6ee,#eee1cf);border-radius:30px;padding:20px;box-shadow:0 44px 90px -34px rgba(0,0,0,.62);width:100%;max-width:430px}
+.rh-frame img{width:100%;height:auto;border-radius:18px;display:block}
+.rh-chip{position:absolute;left:-16px;bottom:30px;background:var(--orange);color:#fff;border-radius:20px;padding:15px 22px;box-shadow:0 18px 38px rgba(238,122,14,.5);text-align:center;transform:rotate(-4deg)}
+.rh-chip .p0{font-size:36px;font-weight:800;line-height:.95}
+.rh-chip .pc{font-size:12px;opacity:.95;display:block;margin-top:3px}
+
+/* TARIFFS */
+.rh-tiers{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.rh-tier{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:36px 30px;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.rh-tier:hover{transform:translateY(-4px);box-shadow:0 26px 54px rgba(60,35,10,.13)}
+.rh-tier.best{border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,var(--orange),#f6ab52) border-box;box-shadow:0 26px 62px rgba(238,122,14,.17)}
+.rh-ribbon{position:absolute;top:-14px;left:28px;background:var(--orange);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:1px;padding:6px 15px;border-radius:999px;box-shadow:0 6px 16px rgba(238,122,14,.4)}
+.rh-tier .t-name{font-size:12px;letter-spacing:1.5px;font-weight:700;color:var(--muted);margin-bottom:16px}
+.rh-tier .t-price{font-size:clamp(40px,5vw,54px);font-weight:800;color:var(--ink);line-height:.95;letter-spacing:-1.5px}
+.rh-tier .t-price small{font-size:17px;font-weight:600;color:var(--muted);letter-spacing:0}
+.rh-tier .t-lead{color:var(--ink2);margin:14px 0 22px;font-size:15px;line-height:1.5}
+.rh-tier .t-lead b{color:var(--orange)}
+.rh-flow{display:flex;flex-direction:column;gap:9px;margin-top:auto}
+.rh-flow .fl{display:flex;align-items:center;gap:11px;background:var(--soft);border-radius:12px;padding:13px 15px;font-size:14px;font-weight:600}
+.rh-flow .fl svg{width:18px;height:18px;color:var(--green);flex-shrink:0}
+.rh-flow .fl.fin{background:var(--orange-l)}
+.rh-flow .fl.fin svg{color:var(--orange-d)}
+.rh-tlist{list-style:none;padding:0;margin:2px 0 auto;display:flex;flex-direction:column;gap:12px}
+.rh-tlist li{display:flex;gap:10px;font-size:14.5px;color:var(--ink2);line-height:1.4}
+.rh-tlist svg{width:18px;height:18px;color:var(--orange);flex-shrink:0;margin-top:1px}
+.rh-tier .btn{margin-top:24px;width:100%}
+
+/* RENT vs BUY + CALC */
+.rh-vs{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.vs-col{border-radius:18px;padding:30px}
+.vs-rent{background:linear-gradient(160deg,#f0f7ef,#e2f0e1);border:1px solid #cfe6cd}
+.vs-buy{background:var(--soft);border:1px solid var(--line)}
+.vs-col h3{font-size:19px;margin:0 0 18px;display:flex;align-items:center;gap:10px}
+.vs-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:13px}
+.vs-col li{display:flex;gap:11px;font-size:14.5px;line-height:1.45;color:var(--ink2)}
+.vs-rent li svg{color:var(--green);width:19px;height:19px;flex-shrink:0;margin-top:1px}
+.vs-buy li::before{content:"✕";color:#c98b6a;font-weight:700;flex-shrink:0}
+.rh-calc{background:radial-gradient(120% 130% at 100% 0%,#3a2417,var(--espresso));color:#fff;border-radius:24px;padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:26px}
+.rh-calc h3{font-size:23px;margin:0 0 6px}
+.rh-calc .c-sub{color:#c9bab0;font-size:14px;margin-bottom:22px;line-height:1.5}
+.rh-calc label{display:block;font-size:13px;color:#c9bab0;margin-bottom:10px}
+.rh-calc input[type=range]{width:100%;height:6px;accent-color:var(--orange);cursor:pointer}
+.c-cups{font-size:32px;font-weight:800;color:var(--orange);margin-bottom:2px}
+.c-cups small{font-size:15px;color:#c9bab0;font-weight:600}
+.rh-calc-out{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:24px}
+.co-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14px;color:#e6dcd2}
+.co-row:last-child{border:0;padding-bottom:0}
+.co-row b{font-size:21px;color:#fff}
+.co-free{color:#7ee08a!important}
+.co-badge{display:inline-block;margin-top:14px;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700}
+.co-badge.free{background:rgba(126,224,138,.16);color:#7ee08a}
+.co-badge.paid{background:rgba(238,122,14,.18);color:#ffb968}
+
+/* BIG-ICON FEATURES */
+.rh-feat{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ft{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 22px;text-align:center;transition:transform .3s,box-shadow .3s}
+.ft:hover{transform:translateY(-5px);box-shadow:0 22px 46px rgba(60,35,10,.1)}
+.ft-ic{width:58px;height:58px;margin:0 auto 15px;border-radius:16px;background:var(--orange-l);display:flex;align-items:center;justify-content:center;color:var(--orange-d)}
+.ft-ic svg{width:28px;height:28px}
+.ft b{display:block;font-size:15px;margin-bottom:5px}
+.ft span{font-size:13px;color:var(--muted);line-height:1.45}
+
+/* WHY / TRUST */
+.rh-why{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rh-w{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;transition:border-color .2s,transform .2s}
+.rh-w:hover{border-color:var(--orange);transform:translateY(-2px)}
+.rh-w-ic{width:44px;height:44px;border-radius:12px;background:var(--orange-l);display:flex;align-items:center;justify-content:center;color:var(--orange-d);flex-shrink:0}
+.rh-w-ic svg{width:22px;height:22px}
+.rh-w b{font-size:15px;display:block;margin-bottom:3px}
+.rh-w span{font-size:13px;color:var(--muted);line-height:1.4}
+
+/* SEGMENTS */
+.rh-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sg{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px 18px;font-weight:600;font-size:14.5px;transition:border-color .2s,transform .2s}
+.sg:hover{border-color:var(--orange);transform:translateY(-2px)}
+.sg svg{width:22px;height:22px;color:var(--orange);flex-shrink:0}
+
+/* FINAL CTA + contacts */
+.rh-final{background:radial-gradient(120% 140% at 0% 0%,#3a2417,var(--espresso));color:#fff}
+.rh-final-in{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;max-width:var(--wrap);margin:0 auto;padding:70px 20px}
+.rh-final h2{font-size:clamp(26px,3.2vw,38px);line-height:1.1;margin:0 0 14px}
+.rh-final p{color:#d9ccc0;font-size:16px;line-height:1.6;margin-bottom:24px}
+.rh-contacts{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.rh-ct{display:inline-flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-weight:600;font-size:15px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:13px 16px;transition:background .2s,border-color .2s}
+.rh-ct:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.25)}
+.rh-ct svg{width:20px;height:20px;flex-shrink:0}
+.rh-msgs{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.rh-msg{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:12px;font-weight:700;font-size:14px;color:#fff;text-decoration:none;transition:transform .2s,filter .2s}
+.rh-msg:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.rh-msg svg{width:18px;height:18px}
+.rh-msg.viber{background:#7360F2}.rh-msg.tg{background:#2AABEE}.rh-msg.wa{background:#25D366}
+.rh-formcard{background:#fff;border-radius:22px;padding:30px;box-shadow:0 30px 70px -30px rgba(0,0,0,.5)}
+.rh-formcard h3{font-size:19px;margin:0 0 6px;color:var(--ink)}
+.rh-formcard .fc-sub{color:var(--muted);font-size:13.5px;margin-bottom:18px}
+
+@media(max-width:960px){
+ .rh-hero-in{grid-template-columns:1fr;text-align:center;padding:46px 18px 56px}
+ .rh-hero .rh-lead,.rh-fire{margin-left:auto;margin-right:auto}
+ .rh-herocta,.rh-trust{justify-content:center}
+ .rh-tiers,.rh-vs,.rh-calc,.rh-why,.rh-final-in{grid-template-columns:1fr}
+ .rh-feat,.rh-seg{grid-template-columns:1fr 1fr}
+ .rh-chip{left:50%;transform:translateX(-50%) rotate(-4deg)}
+ .rh-sec{padding:56px 0}
+}
+@media(max-width:480px){
+ .rh-feat{grid-template-columns:1fr 1fr}
+ .rh-calc,.rh-formcard{padding:22px}
+ .rh-frame{max-width:340px}
+}
 '''
 
 def write_css():
@@ -1592,6 +1729,13 @@ def _rent_form(color_key):
   <button type="submit" class="btn btn-lg" style="width:100%">Отримати безкоштовну кавомашину</button>
 </form>'''
 
+CONTACTS = {
+    'email':'info@npromax.com.ua',
+    'phone_display':'',   # напр. '+38 (097) 000-00-00' — БЕЗ підтвердження власника не заповнювати
+    'phone_tel':'',       # напр. '+380970000000'
+    'viber':'', 'telegram':'', 'whatsapp':'',  # посилання; пусто = не показувати
+}
+
 def _rent_form_hub():
     """Форма хабу: видимий вибір кольору + приховані UTM/fbclid."""
     utm=''.join(f'<input type="hidden" name="{k}" id="fh_{k}">' for k in ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'])
@@ -1752,6 +1896,30 @@ HUB_FAQ_BASE=[
  ('Як залишити заявку?','Натисніть «Отримати кавомашину», заповніть ім’я і телефон — менеджер зв’яжеться з вами протягом робочого дня, узгодить умови й договір.'),
 ]
 
+RENTAL_JS = r'''
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  var c=document.getElementById('rhCalc'); if(!c)return;
+  var r=document.getElementById('rhCups'),cupsEl=document.getElementById('rhCupsVal'),
+      chEl=document.getElementById('rhChalds'),rentEl=document.getElementById('rhRent'),
+      coffeeEl=document.getElementById('rhCoffee'),badge=document.getElementById('rhBadge');
+  var perCup=parseFloat(c.dataset.percup)||0,thr=parseInt(c.dataset.threshold)||600,rent=parseInt(c.dataset.rent)||1000;
+  function fmt(n){return n.toLocaleString('uk-UA');}
+  function upd(){
+    var cups=parseInt(r.value),ch=cups*30,free=ch>=thr;
+    cupsEl.textContent=cups; chEl.textContent=fmt(ch);
+    rentEl.textContent=free?'0 ₴':fmt(rent)+' ₴'; rentEl.className=free?'co-free':'';
+    coffeeEl.textContent=perCup?('≈ '+fmt(Math.round(ch*perCup))+' ₴'):'—';
+    badge.className='co-badge '+(free?'free':'paid');
+    badge.textContent=free?'✓ Оренда безкоштовна':('Оренда '+fmt(rent)+' ₴/міс');
+  }
+  r.addEventListener('input',upd); upd();
+})();
+</script>
+'''
+
 def rental_hub(cards):
     B='https://www.npromax.com.ua/'
     ese=[x for x in cards if x['type']=='ese'][:5]
@@ -1789,148 +1957,223 @@ def rental_hub(cards):
     faq_ld=json.dumps({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
       {"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":re.sub('<[^>]+>','',a)}} for q,a in faq_items]},ensure_ascii=False)
     crumbs=crumb_ld([('Головна',''),('Кава для бізнесу','kava-dlya-biznesu.html'),('Оренда кавомашини','orenda-kavomashyny.html')])
+
+    # ---- іконки для преміум-блоків ----
+    def _svg(p): return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'
+    FEAT = [
+        (_svg('<rect x="6" y="3" width="12" height="18" rx="2"/><line x1="6" y1="8" x2="18" y2="8"/>'),'Компактна','Вузька — лише 10,5 см завширшки, стане будь-де'),
+        (_svg('<path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.9 7.2 18.7l.9-5.4-3.9-3.8 5.4-.8z"/>'),'Стильний дизайн','Сучасний вигляд, який пасує інтер’єру'),
+        (_svg('<path d="M13 2L4 14h6l-1 8 9-12h-6z"/>'),'Швидке нагрівання','Готова до роботи за лічені секунди'),
+        (_svg('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/>'),'Проста у користуванні','Одна кнопка — і чашка готова'),
+        (_svg('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>'),'Працює на чалдах E.S.E.','Стандарт 44 мм — без кавомолки й темпера'),
+        (_svg('<path d="M12 3s6 5.6 6 10a6 6 0 0 1-12 0c0-4.4 6-10 6-10z"/>'),'Мінімальний догляд','Чалда сама скидається в контейнер'),
+        (_svg('<path d="M4 8h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 9h2.2a2 2 0 0 1 0 5H16"/><path d="M7 3v2M11 3v2"/>'),'Ідеальна кава щоразу','Однаковий смак і щільна пінка'),
+    ]
+    feat_html=''.join('<div class="ft"><div class="ft-ic">%s</div><b>%s</b><span>%s</span></div>'%(ic,t,d) for ic,t,d in FEAT)
+
+    SEG = [('Офіс',_svg('<path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16"/><path d="M15 9h4a1 1 0 0 1 1 1v11"/><line x1="2" y1="21" x2="22" y2="21"/><line x1="8" y1="8" x2="8" y2="8"/><line x1="11" y1="8" x2="11" y2="8"/>')),
+        ('Салон краси',_svg('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.1" y2="15.9"/><line x1="8.1" y1="8.1" x2="20" y2="20"/>')),
+        ('Магазин',_svg('<path d="M3 9l1-5h16l1 5"/><path d="M4 9v11h16V9"/><path d="M3 9h18"/>')),
+        ('Шоурум',_svg('<rect x="3" y="4" width="18" height="13" rx="1"/><line x1="7" y1="21" x2="17" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>')),
+        ('Стоматологія',_svg('<path d="M12 3c-3 0-5 1.6-5 4 0 3 1 4 1.4 7 .3 2 .6 5 1.6 5s1-3 2-3 1 3 2 3 1.3-3 1.6-5c.4-3 1.4-4 1.4-7 0-2.4-2-4-5-4z"/>')),
+        ('Квартира',_svg('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><rect x="10" y="14" width="4" height="6"/>')),
+        ('Приватний будинок',_svg('<path d="M3 21h18M5 21V8l7-5 7 5v13"/><rect x="10" y="14" width="4" height="7"/>')),
+    ]
+    seg_html=''.join('<div class="sg">%s<span>%s</span></div>'%(ic,t) for t,ic in SEG)
+
+    WHY = [
+        (ICON['shield'],'Офіційна компанія','Власне обсмаження та фасування кави NPROMAX'),
+        (ICON['truck'],'Швидка доставка','Новою Поштою по всій Україні'),
+        (ICON['shield'],'Гарантія','Апарат обслуговуємо, підстрахуємо при потребі'),
+        (ICON['refresh'],'Сервіс і заміна','Несправність — вирішуємо, ви без кави не лишитесь'),
+        (ICON['phone'],'Консультація і підбір','Допоможемо обрати каву під ваш смак і обсяг'),
+        (ICON['star'],'Великий вибір чалд E.S.E.','Класика, ароматизовані, без кофеїну'),
+        (ICON['check'],'Постійна наявність','Кава завжди на складі — не залишитесь без запасу'),
+    ]
+    why_html=''.join('<div class="rh-w"><div class="rh-w-ic">%s</div><div><b>%s</b><span>%s</span></div></div>'%(ic,t,d) for ic,t,d in WHY)
+
+    # ---- контакти (телефон/месенджери — лише якщо заповнені у CONTACTS) ----
+    ct=CONTACTS
+    _rows=''
+    if ct.get('phone_tel'):
+        _rows+='<a class="rh-ct" href="tel:%s">%s<span>%s</span></a>'%(ct['phone_tel'],ICON['phone'],esc(ct['phone_display'] or ct['phone_tel']))
+    _rows+='<a class="rh-ct" href="mailto:%s">%s<span>%s</span></a>'%(ct['email'],ICON['phone'],ct['email'])
+    _bubble='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 3 6.4 3 10.6c0 2.4 1.3 4.5 3.3 5.9-.1 1.1-.6 2.3-1.3 3.1-.2.2 0 .5.3.5 1.7-.2 3.2-.9 4.3-1.7.7.1 1.4.2 2.1.2 5.1 0 9-3.4 9-7.6S17.1 3 12 3z"/></svg>'
+    _msgs=''
+    if ct.get('viber'):    _msgs+='<a class="rh-msg viber" href="%s" rel="nofollow">%sViber</a>'%(ct['viber'],_bubble)
+    if ct.get('telegram'): _msgs+='<a class="rh-msg tg" href="%s" rel="nofollow">%sTelegram</a>'%(ct['telegram'],_bubble)
+    if ct.get('whatsapp'): _msgs+='<a class="rh-msg wa" href="%s" rel="nofollow">%sWhatsApp</a>'%(ct['whatsapp'],_bubble)
+    msgs_html=('<div class="rh-msgs">%s</div>'%_msgs) if _msgs else ''
+    contact_html='<div class="rh-contacts">%s%s</div>'%(_rows,msgs_html)
+
     body=f'''
 <script type="application/ld+json">{svc_ld}</script>
 <script type="application/ld+json">{faq_ld}</script>
 {crumbs}
 
-<section class="lp-hero"><div class="wrap lp-hero-in">
-  <div class="lp-hero-txt">
-    <div class="lp-eyebrow">POLTI COFFEA · ЧАЛДИ E.S.E. 44 ММ</div>
-    <h1>Оренда нової кавомашини</h1>
-    <p class="lp-sub">Дві прості умови співпраці. Ви платите лише за каву — <b>кавомашина працює у вас безкоштовно</b> за умови закупівлі чалдів, які ви й так п’єте.</p>
-    <div class="lp-cta"><a href="#zayavka" class="btn btn-lg">Отримати кавомашину</a><a href="#umovy" class="btn btn-ghost btn-lg">Два варіанти співпраці</a></div>
-    <div class="lp-badges">{ICON['check']}Нова машина{cup_line} · {ICON['truck']}Доставка по Україні · {ICON['check']}Договір оренди</div>
+<section class="rh-hero"><div class="rh-hero-in">
+  <div class="rh-hero-txt">
+    <div class="rh-eyebrow">POLTI COFFEA · ЧАЛДИ E.S.E. 44 ММ</div>
+    <h1>Оренда нової кавомашини — <span class="hl">від 1000 ₴/міс</span> або <span class="hl">безкоштовно</span></h1>
+    <p class="rh-lead">Ви платите лише за каву, яку й так п’єте. Кавомашина працює у вас, а її оренда стає <b>безкоштовною</b> за умови закупівлі чалдів E.S.E.</p>
+    <div class="rh-fire">🔥&nbsp;<span>Від <b>600 чалдів E.S.E. на місяць</b> — оренда кавомашини <b>безкоштовна</b>.</span></div>
+    <div class="rh-herocta">
+      <a href="#zayavka" class="btn btn-lg">Отримати консультацію</a>
+      <a href="#tarify" class="btn btn-ghost btn-lg">Два тарифи</a>
+    </div>
+    <div class="rh-trust"><span>{ICON['check']}Нова машина</span><span>{ICON['truck']}Доставка по Україні</span><span>{ICON['shield']}Договір оренди</span></div>
   </div>
-  <div class="lp-hero-vis">
-    <picture><source srcset="assets/img/polti-bila.webp" type="image/webp"><img src="assets/img/polti-bila.jpg" alt="Кавомашина POLTI Coffea S18 для чалдів E.S.E." class="lp-photo" width="900" height="900" fetchpriority="high"></picture>
-    <div class="lp-offer-badge"><span class="lp-0">0<small>грн/міс</small></span><span class="lp-cond">від 600 чалдів E.S.E.</span></div>
+  <div class="rh-hero-vis">
+    <div class="rh-frame">
+      <picture><source srcset="assets/img/polti-bila.webp" type="image/webp"><img src="assets/img/polti-bila.jpg" alt="Кавомашина POLTI Coffea S18 для чалдів E.S.E." width="900" height="900" fetchpriority="high"></picture>
+      <div class="rh-chip"><span class="p0">0<small> ₴/міс</small></span><span class="pc">від 600 чалдів E.S.E.</span></div>
+    </div>
   </div>
 </div></section>
 
-<section class="section" id="umovy"><div class="wrap">
-  <div class="section-h"><h2>Два варіанти співпраці</h2><div class="sub">Оберіть той, що підходить вашому обсягу кави</div></div>
-  <div class="opt-grid">
-    <div class="opt-card opt-hi">
-      <div class="opt-tag">ВАРІАНТ 1 · найвигідніше</div>
-      <div class="opt-price">0 грн<small>/міс оренди</small></div>
-      <p class="opt-lead">Безкоштовна оренда за умови купівлі <b>від 600 чалдів E.S.E.</b> щомісяця.</p>
-      <div class="opt-flow">
-        <div class="flow-step">{ICON['check']}<span>Отримуєте нову кавомашину</span></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-step">{ICON['check']}<span>Замовляєте 600 чалдів щомісяця</span></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-step flow-final">{ICON['check']}<span>Користуєтесь машиною <b>безкоштовно</b></span></div>
+<section class="rh-sec" id="tarify"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">ДВІ УМОВИ СПІВПРАЦІ</div><h2>Оберіть свій тариф</h2><div class="rh-hsub">Обидва варіанти — та сама нова кавомашина POLTI. Різниця лише в обсязі кави.</div></div>
+  <div class="rh-tiers">
+    <div class="rh-tier best">
+      <div class="rh-ribbon">НАЙВИГІДНІШЕ</div>
+      <div class="t-name">ВАРІАНТ 1</div>
+      <div class="t-price">0 ₴<small> /міс оренди</small></div>
+      <p class="t-lead">Безкоштовна оренда за умови купівлі <b>від 600 чалдів E.S.E.</b> щомісяця.</p>
+      <div class="rh-flow">
+        <div class="fl">{ICON['check']}<span>Отримуєте нову кавомашину POLTI</span></div>
+        <div class="fl">{ICON['check']}<span>Замовляєте від 600 чалдів щомісяця</span></div>
+        <div class="fl fin">{ICON['check']}<span>Користуєтесь машиною безкоштовно</span></div>
       </div>
+      <a href="#zayavka" class="btn btn-lg">Отримати безкоштовно</a>
     </div>
-    <div class="opt-card">
-      <div class="opt-tag">ВАРІАНТ 2</div>
-      <div class="opt-price">1000 грн<small>/міс оренди</small></div>
-      <p class="opt-lead">Якщо потрібно <b>менше ніж 600 чалдів</b> на місяць — оренда апарата коштує 1000 грн/міс.</p>
-      <ul class="opt-list">
+    <div class="rh-tier">
+      <div class="t-name">ВАРІАНТ 2</div>
+      <div class="t-price">1000 ₴<small> /міс оренди</small></div>
+      <p class="t-lead">Якщо потрібно <b>менше ніж 600 чалдів</b> на місяць — фіксована оренда апарата.</p>
+      <ul class="rh-tlist">
         <li>{ICON['check']}Та сама нова кавомашина POLTI</li>
         <li>{ICON['check']}Без зобов’язань щодо обсягу кави</li>
-        <li>{ICON['check']}Можна перейти на безкоштовний варіант будь-коли</li>
+        <li>{ICON['check']}Перехід на безкоштовний тариф будь-коли</li>
+      </ul>
+      <a href="#zayavka" class="btn btn-outline btn-lg">Замовити кавомашину</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="rh-sec" style="background:var(--soft)"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">ВИГІДНО</div><h2>Чому оренда вигідніша за покупку</h2><div class="rh-hsub">Ви отримуєте професійну каву без великих вкладень у техніку.</div></div>
+  <div class="rh-vs">
+    <div class="vs-col vs-rent">
+      <h3>{ICON['check']} Оренда з NPRO MAX</h3>
+      <ul>
+        <li>{ICON['check']}Не потрібно вкладати десятки тисяч гривень одразу</li>
+        <li>{ICON['check']}Обслуговування та підтримка — на нас</li>
+        <li>{ICON['check']}Заміна апарата при несправності</li>
+        <li>{ICON['check']}Завжди сучасна, справна кавомашина</li>
+        <li>{ICON['check']}0 ₴/міс за умови купівлі від 600 чалдів</li>
+      </ul>
+    </div>
+    <div class="vs-col vs-buy">
+      <h3>Купівля апарата</h3>
+      <ul>
+        <li>Десятки тисяч гривень одразу «заморожені» в техніці</li>
+        <li>Гарантійний ремонт і сервіс — ваш клопіт</li>
+        <li>Ризик, що модель застаріє</li>
+        <li>Простій у роботі, поки апарат у ремонті</li>
       </ul>
     </div>
   </div>
-  <div style="text-align:center;margin-top:24px"><a href="#zayavka" class="btn btn-lg">Отримати кавомашину</a></div>
+
+  <div class="rh-calc" id="rhCalc" data-percup="{from_cup or 0}" data-threshold="600" data-rent="1000">
+    <div>
+      <h3>Калькулятор</h3>
+      <p class="c-sub">Порахуйте, скільки чалдів виходить за місяць і коли оренда стає безкоштовною.</p>
+      <div class="c-cups"><span id="rhCupsVal">20</span> <small>чашок на день</small></div>
+      <input type="range" id="rhCups" min="5" max="80" value="20" step="1" aria-label="Чашок на день">
+    </div>
+    <div class="rh-calc-out">
+      <div class="co-row"><span>Чалдів на місяць</span><b id="rhChalds">600</b></div>
+      <div class="co-row"><span>Оренда кавомашини</span><b id="rhRent">0 ₴</b></div>
+      <div class="co-row"><span>Кава (орієнтовно)</span><b id="rhCoffee">—</b></div>
+      <span class="co-badge free" id="rhBadge">✓ Оренда безкоштовна</span>
+    </div>
+  </div>
 </div></section>
 
-<section class="section" style="background:var(--crema)"><div class="wrap ese-explain">
+<section class="rh-sec"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">КАВОМАШИНА POLTI COFFEA S18</div><h2>Переваги апарата</h2><div class="rh-hsub">Компактна, проста й надійна — професійний еспресо без бариста.</div></div>
+  <div class="rh-feat">{feat_html}</div>
+</div></section>
+
+<section class="rh-sec" style="background:var(--crema)"><div class="rh-wrap ese-explain reveal">
   <div class="ese-txt">
-    <div class="kicker">ПРОСТО ПРО ГОЛОВНЕ</div>
+    <div class="rh-kicker">ПРОСТО ПРО ГОЛОВНЕ</div>
     <h2>Що таке чалди E.S.E. 44 мм</h2>
-    <p>Чалда E.S.E. (Easy Serving Espresso) — це готова порція меленої кави, спресована у паперовому фільтрі діаметром 44 мм. По суті — «чайний пакетик», але для еспресо.</p>
-    <p>Ви вставляєте чалду в машину, натискаєте кнопку — і за секунди отримуєте чашку еспресо з пінкою. Ніякої кавомолки, зважування, темпера чи прибирання гущі. Використану чалду машина сама скидає в контейнер.</p>
+    <p>Чалда E.S.E. (Easy Serving Espresso) — це готова порція меленої кави, спресована у паперовому фільтрі 44 мм. По суті — «пакетик» для еспресо.</p>
+    <p>Вставляєте чалду, натискаєте кнопку — і за секунди отримуєте чашку з пінкою. Без кавомолки, зважування й прибирання гущі. Використану чалду машина сама скидає в контейнер.</p>
     <a href="monodozy-ese.html" class="btn btn-outline">Дивитись усі чалди E.S.E.</a>
   </div>
   <div class="ese-why">
     <h3>Чому саме E.S.E.</h3>
     <ul>
-      <li>{ICON['check']}Завжди однаковий смак</li>
-      <li>{ICON['check']}Правильне дозування</li>
-      <li>{ICON['check']}Швидке приготування</li>
-      <li>{ICON['check']}Немає бруду й гущі</li>
-      <li>{ICON['check']}Не потрібно молоти каву</li>
-      <li>{ICON['check']}Мінімальний догляд</li>
-      <li>{ICON['check']}Ідеально для дому</li>
-      <li>{ICON['check']}Ідеально для офісу</li>
+      <li>{ICON['check']}Завжди однаковий смак</li><li>{ICON['check']}Правильне дозування</li>
+      <li>{ICON['check']}Швидке приготування</li><li>{ICON['check']}Немає бруду й гущі</li>
+      <li>{ICON['check']}Не треба молоти каву</li><li>{ICON['check']}Мінімальний догляд</li>
+      <li>{ICON['check']}Ідеально для дому</li><li>{ICON['check']}Ідеально для офісу</li>
     </ul>
   </div>
 </div></section>
 
-<section class="section"><div class="wrap">
+<section class="rh-sec"><div class="rh-wrap reveal">
   <div class="section-h row"><div><h2>Асортимент чалдів E.S.E.</h2><div class="sub">Саме на цій каві машина працює безкоштовно{cup_line}</div></div><a href="monodozy-ese.html" class="more">Усі монодози {ICON['arrow']}</a></div>
   <div class="chald-grid">{chalds_html}</div>
 </div></section>
 
-<section class="section" style="background:var(--soft)"><div class="wrap">
-  <div class="section-h"><h2>Кавомашина POLTI Coffea S18</h2><div class="sub">Одна модель — два кольори. Компактна, вузька (лише 10,5 см), проста в користуванні</div></div>
-  <div class="cmp">
-    <div class="cmp-photo"><picture><source srcset="assets/img/polti-bila.webp" type="image/webp"><img src="assets/img/polti-bila.jpg" alt="Кавомашина POLTI Coffea S18W біла" width="900" height="900" loading="lazy"></picture></div>
-    <div class="cmp-info">
-      <div class="cmp-colors">
-        <span class="clr clr-w"></span> S18W — біла
-        <span class="clr clr-b"></span> S18B — чорна
-      </div>
-      <div class="spec-grid">{specs_html}</div>
-      <p class="cmp-note">Колір апарата оберете у формі заявки. Технічно біла та чорна версії ідентичні.</p>
-    </div>
-  </div>
-</div></section>
-
-<section class="section"><div class="wrap">
-  <div class="section-h"><h2>Що входить в оренду</h2><div class="sub">Ви отримуєте не просто апарат, а готове рішення</div></div>
-  <div class="incl-grid">
-    <div class="incl">{ICON['check']}<b>Нова кавомашина</b><span>POLTI Coffea S18 обраного кольору</span></div>
-    <div class="incl">{ICON['check']}<b>Консультація та підбір</b><span>допоможемо обрати каву під ваш смак і обсяг</span></div>
-    <div class="incl">{ICON['check']}<b>Допомога із запуском</b><span>підкажемо, як почати користуватися</span></div>
-    <div class="incl">{ICON['check']}<b>Підтримка менеджера</b><span>на зв’язку у робочі години</span></div>
-    <div class="incl">{ICON['truck']}<b>Доставка по Україні</b><span>умови узгоджуються індивідуально</span></div>
-    <div class="incl">{ICON['refresh']}<b>Продовження оренди</b><span>поки замовляєте каву — машина у вас</span></div>
-  </div>
-</div></section>
-
-<section class="section" style="background:var(--crema)"><div class="wrap">
-  <div class="section-h"><h2>Де використовувати</h2><div class="sub">Скрізь, де п’ють від ~20 чашок кави на день</div></div>
-  <div class="seg-grid">
-    <div class="seg">Дім</div><div class="seg">Офіс</div><div class="seg">Салон краси</div>
-    <div class="seg">Магазин</div><div class="seg">Шоурум</div><div class="seg">Кабінет / приймальня</div>
-  </div>
-</div></section>
-
-<section class="section"><div class="wrap">
-  <div class="section-h"><h2>Як отримати кавомашину</h2><div class="sub">Від заявки до першої чашки — 4 кроки</div></div>
+<section class="rh-sec" style="background:var(--soft)"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">ЯК ЦЕ ПРАЦЮЄ</div><h2>Оренда — у 4 кроки</h2><div class="rh-hsub">Від заявки до першої чашки кави.</div></div>
   <div class="steps">
     <div class="step"><span class="step-n">1</span><h3>Залишаєте заявку</h3><p>Ім’я, телефон і колір апарата.</p></div>
-    <div class="step"><span class="step-n">2</span><h3>Менеджер дзвонить</h3><p>Уточнює обсяг кави й відповідає на питання.</p></div>
-    <div class="step"><span class="step-n">3</span><h3>Договір і доставка</h3><p>Узгоджуємо умови оренди та передачу апарата.</p></div>
-    <div class="step"><span class="step-n">4</span><h3>Користуєтесь</h3><p>Ставите машину й замовляєте чалди E.S.E.</p></div>
+    <div class="step"><span class="step-n">2</span><h3>Ми доставляємо машину</h3><p>Узгоджуємо умови оренди й договір.</p></div>
+    <div class="step"><span class="step-n">3</span><h3>Замовляєте чалди</h3><p>Обираєте кану до смаку — ми на зв’язку.</p></div>
+    <div class="step"><span class="step-n">4</span><h3>Насолоджуєтесь кавою</h3><p>Професійний еспресо щодня.</p></div>
   </div>
 </div></section>
 
-<section class="section" style="background:var(--soft)"><div class="wrap"><div class="b2b-band">
-  <div class="b2b-txt"><div class="kicker">ДОВІРА</div><h2>4 400+ відгуків на Prom.ua</h2>
-  <p>Власне обсмаження та фасування кави NPROMAX. Договір оренди, доставка Новою Поштою по всій Україні.</p></div>
-  <a href="https://npro.prom.ua" rel="nofollow" class="btn btn-lg">Відгуки на Prom</a>
-</div></div></section>
+<section class="rh-sec"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">ДЛЯ КОГО</div><h2>Де ставлять нашу кавомашину</h2><div class="rh-hsub">Скрізь, де цінують швидку якісну каву.</div></div>
+  <div class="rh-seg">{seg_html}</div>
+</div></section>
 
-<section class="section" style="padding-top:0"><div class="wrap" style="max-width:860px">
-  <div class="section-h"><h2>Часті питання</h2><div class="sub">Усе про оренду, чалди й машину</div></div>
+<section class="rh-sec" style="background:var(--crema)"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">ДОВІРА</div><h2>Чому саме NPRO MAX</h2><div class="rh-hsub">Власне обсмаження кави та повний супровід оренди.</div></div>
+  <div class="rh-why">{why_html}</div>
+  <div class="b2b-band" style="margin-top:26px"><div class="b2b-txt"><div class="kicker">ВІДГУКИ</div><h2 style="color:#fff">4 400+ відгуків на Prom.ua</h2><p>Реальні оцінки покупців нашої кави. Договір оренди, доставка по всій Україні.</p></div><a href="https://npro.prom.ua" rel="nofollow" class="btn btn-lg">Дивитись відгуки</a></div>
+</div></section>
+
+<section class="rh-sec"><div class="rh-wrap reveal" style="max-width:860px">
+  <div class="rh-head"><div class="rh-kicker">ПИТАННЯ І ВІДПОВІДІ</div><h2>Часті питання</h2></div>
   <div class="faq">{faq_html}</div>
 </div></section>
 
-<section class="section" id="zayavka" style="background:var(--espresso)"><div class="wrap" style="max-width:640px">
-  <div class="lp-form-h"><h2>Отримайте кавомашину POLTI</h2>
-  <p>Залиште заявку — менеджер зв’яжеться, узгодить умови й договір. Ви платите лише за каву.</p></div>
-  {_rent_form_hub()}
+<section class="rh-final" id="zayavka"><div class="rh-final-in reveal">
+  <div class="rh-final-txt">
+    <h2>Отримайте кавомашину POLTI вже цього тижня</h2>
+    <p>Залиште заявку — менеджер зв’яжеться, підбере каву під ваш обсяг і узгодить договір. Ви платите лише за каву, а від 600 чалдів на місяць оренда — <b style="color:#ffb968">безкоштовна</b>.</p>
+    {contact_html}
+  </div>
+  <div class="rh-formcard">
+    <h3>Заявка на кавомашину</h3>
+    <div class="fc-sub">Відповімо у робочі години. Це безкоштовно й ні до чого не зобов’язує.</div>
+    {_rent_form_hub()}
+  </div>
 </div></section>
-<div class="lp-sticky"><span><b>0 грн/міс</b> · оренда POLTI</span><a href="#zayavka" class="btn">Отримати</a></div>
-<div style="height:10px"></div>
+
+<div class="lp-sticky"><span><b>0 ₴/міс</b> · оренда POLTI</span><a href="#zayavka" class="btn">Отримати</a></div>
+<div style="height:8px"></div>
 '''
+    body += RENTAL_JS
     return layout('Оренда кавомашини POLTI Coffea S18 для чалдів E.S.E. — 0 грн/міс | NPROMAX',
-      'Оренда нової кавомашини POLTI Coffea S18 для дому та бізнесу: від 600 чалдів E.S.E. на місяць — 0 грн/міс, інакше 1000 грн. Що таке E.S.E., асортимент чалдів, умови, доставка по Україні.',
+      'Оренда нової кавомашини POLTI Coffea S18 для дому та бізнесу: від 600 чалдів E.S.E. на місяць — 0 грн/міс, інакше 1000 грн. Калькулятор економії, умови, доставка по Україні.',
       body, active='kava-dlya-biznesu', canonical='orenda-kavomashyny.html')
 
 def thank_you_page():
