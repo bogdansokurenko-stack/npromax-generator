@@ -779,7 +779,13 @@ h1{font-size:34px}h2{font-size:26px}
 @media(max-width:480px){
  .rh-feat{grid-template-columns:1fr 1fr}
  .rh-calc,.rh-formcard{padding:22px}
- .rh-frame{max-width:340px}
+ .rh-frame{max-width:300px}
+ .rh-hero-in{padding:30px 16px 40px}
+ .rh-hero h1{font-size:29px;line-height:1.08;letter-spacing:-.5px}
+ .rh-eyebrow{font-size:11px;letter-spacing:1.5px;padding:6px 12px;margin-bottom:16px}
+ .rh-sec{padding:44px 0}
+ .rh-head{margin-bottom:28px}
+ .home-rent{padding:26px 18px}
 }
 '''
 
