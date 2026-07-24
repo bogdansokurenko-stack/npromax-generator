@@ -1978,13 +1978,13 @@ def rental_hub(cards):
     # ---- іконки для преміум-блоків ----
     def _svg(p): return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'
     FEAT = [
-        (_svg('<rect x="6" y="3" width="12" height="18" rx="2"/><line x1="6" y1="8" x2="18" y2="8"/>'),'Компактна','Вузька — лише 10,5 см завширшки, стане будь-де'),
+        (_svg('<rect x="6" y="3" width="12" height="18" rx="2"/><line x1="6" y1="8" x2="18" y2="8"/>'),'Компактна','10,5 см завширшки'),
         (_svg('<path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.9 7.2 18.7l.9-5.4-3.9-3.8 5.4-.8z"/>'),'Стильний дизайн','Сучасний вигляд, який пасує інтер’єру'),
-        (_svg('<path d="M13 2L4 14h6l-1 8 9-12h-6z"/>'),'Швидке нагрівання','Готова до роботи за лічені секунди'),
-        (_svg('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/>'),'Проста у користуванні','Одна кнопка — і чашка готова'),
-        (_svg('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>'),'Працює на чалдах E.S.E.','Стандарт 44 мм — без кавомолки й темпера'),
-        (_svg('<path d="M12 3s6 5.6 6 10a6 6 0 0 1-12 0c0-4.4 6-10 6-10z"/>'),'Мінімальний догляд','Чалда сама скидається в контейнер'),
-        (_svg('<path d="M4 8h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 9h2.2a2 2 0 0 1 0 5H16"/><path d="M7 3v2M11 3v2"/>'),'Ідеальна кава щоразу','Однаковий смак і щільна пінка'),
+        (_svg('<path d="M13 2L4 14h6l-1 8 9-12h-6z"/>'),'Швидке нагрівання','Готова за секунди'),
+        (_svg('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/>'),'Проста у користуванні','Одна кнопка'),
+        (_svg('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>'),'Працює на чалдах E.S.E.','Стандарт 44 мм'),
+        (_svg('<path d="M12 3s6 5.6 6 10a6 6 0 0 1-12 0c0-4.4 6-10 6-10z"/>'),'Мінімальний догляд','Чалда сама в контейнер'),
+        (_svg('<path d="M4 8h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 9h2.2a2 2 0 0 1 0 5H16"/><path d="M7 3v2M11 3v2"/>'),'Ідеальна кава щоразу','Щільна пінка щоразу'),
     ]
     feat_html=''.join('<div class="ft"><div class="ft-ic">%s</div><b>%s</b><span>%s</span></div>'%(ic,t,d) for ic,t,d in FEAT)
     GALLERY=[('polti-bila-a','Кавомашина POLTI Coffea S18W (біла) — вигляд збоку'),
@@ -2007,11 +2007,11 @@ def rental_hub(cards):
     WHY = [
         (ICON['shield'],'Офіційна компанія','Власне обсмаження та фасування кави NPROMAX'),
         (ICON['truck'],'Швидка доставка','Новою Поштою по всій Україні'),
-        (ICON['shield'],'Гарантія','Апарат обслуговуємо, підстрахуємо при потребі'),
-        (ICON['refresh'],'Сервіс і заміна','Несправність — вирішуємо, ви без кави не лишитесь'),
-        (ICON['phone'],'Консультація і підбір','Допоможемо обрати каву під ваш смак і обсяг'),
+        (ICON['shield'],'Гарантія','Обслуговуємо апарат'),
+        (ICON['refresh'],'Сервіс і заміна','Заміна при несправності'),
+        (ICON['phone'],'Консультація і підбір','Підбір кави під вас'),
         (ICON['star'],'Великий вибір чалд E.S.E.','Класика, ароматизовані, без кофеїну'),
-        (ICON['check'],'Постійна наявність','Кава завжди на складі — не залишитесь без запасу'),
+        (ICON['check'],'Постійна наявність','Кава завжди на складі'),
     ]
     why_html=''.join('<div class="rh-w"><div class="rh-w-ic">%s</div><div><b>%s</b><span>%s</span></div></div>'%(ic,t,d) for ic,t,d in WHY)
 
@@ -2038,7 +2038,7 @@ def rental_hub(cards):
   <div class="rh-hero-txt">
     <div class="rh-eyebrow">POLTI COFFEA · ЧАЛДИ E.S.E. 44 ММ</div>
     <h1>Оренда нової кавомашини — <span class="hl">від 1000 ₴/міс</span> або <span class="hl">безкоштовно</span></h1>
-    <p class="rh-lead">Ви платите лише за каву, яку й так п’єте. Кавомашина працює у вас, а її оренда стає <b>безкоштовною</b> за умови закупівлі чалдів E.S.E.</p>
+    <p class="rh-lead">Ви платите лише за каву, яку й так п’єте.</p>
     <div class="rh-fire">🔥&nbsp;<span>Від <b>600 чалдів E.S.E. на місяць</b> — оренда кавомашини <b>безкоштовна</b>.</span></div>
     <div class="rh-herocta">
       <a href="#zayavka" class="btn btn-lg">Отримати консультацію</a>
@@ -2055,7 +2055,7 @@ def rental_hub(cards):
 </div></section>
 
 <section class="rh-sec" id="tarify"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">ДВІ УМОВИ СПІВПРАЦІ</div><h2>Оберіть свій тариф</h2><div class="rh-hsub">Обидва варіанти — та сама нова кавомашина POLTI. Різниця лише в обсязі кави.</div></div>
+  <div class="rh-head"><div class="rh-kicker">ДВІ УМОВИ СПІВПРАЦІ</div><h2>Оберіть свій тариф</h2><div class="rh-hsub">Та сама машина. Різниця — в обсязі кави.</div></div>
   <div class="rh-tiers">
     <div class="rh-tier best">
       <div class="rh-ribbon">НАЙВИГІДНІШЕ</div>
@@ -2084,7 +2084,7 @@ def rental_hub(cards):
 </div></section>
 
 <section class="rh-sec" style="background:var(--soft)"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">ВИГІДНО</div><h2>Чому оренда вигідніша за покупку</h2><div class="rh-hsub">Ви отримуєте професійну каву без великих вкладень у техніку.</div></div>
+  <div class="rh-head"><div class="rh-kicker">ВИГІДНО</div><h2>Чому оренда вигідніша за покупку</h2><div class="rh-hsub">Без вкладень у техніку.</div></div>
   <div class="rh-vs">
     <div class="vs-col vs-rent">
       <h3>{ICON['check']} Оренда з NPRO MAX</h3>
@@ -2127,8 +2127,7 @@ def rental_hub(cards):
   <div class="ese-txt">
     <div class="rh-kicker">ПРОСТО ПРО ГОЛОВНЕ</div>
     <h2>Що таке чалди E.S.E. 44 мм</h2>
-    <p>Чалда E.S.E. (Easy Serving Espresso) — це готова порція меленої кави, спресована у паперовому фільтрі 44 мм. По суті — «пакетик» для еспресо.</p>
-    <p>Вставляєте чалду, натискаєте кнопку — і за секунди отримуєте чашку з пінкою. Без кавомолки, зважування й прибирання гущі. Використану чалду машина сама скидає в контейнер.</p>
+    <p>Готова порція кави у фільтрі 44 мм — «пакетик» для еспресо. Вставили, натиснули — чашка з пінкою за секунди. Без кавомолки й гущі.</p>
     <a href="monodozy-ese.html" class="btn btn-outline">Дивитись усі чалди E.S.E.</a>
   </div>
   <div class="ese-why">
@@ -2143,20 +2142,20 @@ def rental_hub(cards):
 </div></section>
 
 <section class="rh-sec"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">КАВА ДЛЯ ВАШОЇ КАВОМАШИНИ</div><h2>Оберіть каву — і машина працює безкоштовно</h2><div class="rh-hsub">Обладнання й кава — одна готова система. Чалди E.S.E. купуєте тут, за цінами сайту <b>без прихованих націнок</b> — шукати інших постачальників не потрібно{cup_line}.</div></div>
+  <div class="rh-head"><div class="rh-kicker">КАВА ДЛЯ ВАШОЇ КАВОМАШИНИ</div><h2>Оберіть каву — і машина працює безкоштовно</h2><div class="rh-hsub">Обладнання й кава — одна система. Чалди тут, за цінами сайту, <b>без націнок</b>{cup_line}.</div></div>
   <div class="chald-grid">{chalds_html}</div>
   <div style="text-align:center;margin-top:30px"><a href="monodozy-ese.html" class="btn btn-lg">Перейти до каталогу чалдів {ICON['arrow']}</a></div>
 </div></section>
 
 <section class="rh-sec"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">КАВОМАШИНА POLTI COFFEA</div><h2>Переваги апарата</h2><div class="rh-hsub">Компактна, проста й надійна — професійний еспресо без бариста. Біла S18W або чорна S15B.</div></div>
+  <div class="rh-head"><div class="rh-kicker">КАВОМАШИНА POLTI COFFEA</div><h2>Переваги апарата</h2><div class="rh-hsub">Компактна, 10,5 см. Біла S18W / чорна S15B.</div></div>
   <div class="rh-feat">{feat_html}</div>
   <div class="rh-gallery">{gallery_html}</div>
   <div style="text-align:center;margin-top:16px;color:var(--muted);font-size:14px">Реальні фото апарата · колір (біла S18W / чорна S15B) обираєте у заявці</div>
 </div></section>
 
 <section class="rh-sec" style="background:var(--soft)"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">ВІДЕО</div><h2>Кавомашина POLTI Coffea в дії</h2><div class="rh-hsub">Подивіться, як просто готувати еспресо на чалдах E.S.E. — одна кнопка, і чашка готова.</div></div>
+  <div class="rh-head"><div class="rh-kicker">ВІДЕО</div><h2>Кавомашина POLTI Coffea в дії</h2><div class="rh-hsub">Одна кнопка — еспресо за секунди.</div></div>
   <div class="rh-video" onclick="rhPlay(this)" data-id="msJSEkVrUDg">
     <img src="https://img.youtube.com/vi/msJSEkVrUDg/hqdefault.jpg" alt="Відео огляд кавомашини POLTI Coffea для чалдів E.S.E." width="900" height="506" loading="lazy">
     <button class="rh-play" aria-label="Відтворити відео"><svg viewBox="0 0 68 48"><path d="M66.5 7.7c-.8-2.9-3-5.1-5.9-5.9C55.3.5 34 .5 34 .5S12.7.5 7.4 1.8C4.5 2.6 2.3 4.8 1.5 7.7.2 13 .2 24 .2 24s0 11 1.3 16.3c.8 2.9 3 5.1 5.9 5.9C12.7 47.5 34 47.5 34 47.5s21.3 0 26.6-1.3c2.9-.8 5.1-3 5.9-5.9C67.8 35 67.8 24 67.8 24s0-11-1.3-16.3z" fill="#f00"/><path d="M27 34l18-10-18-10z" fill="#fff"/></svg></button>
@@ -2176,12 +2175,12 @@ def rental_hub(cards):
 </div></section>
 
 <section class="rh-sec"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">ДЛЯ КОГО</div><h2>Де ставлять нашу кавомашину</h2><div class="rh-hsub">Скрізь, де цінують швидку якісну каву.</div></div>
+  <div class="rh-head"><div class="rh-kicker">ДЛЯ КОГО</div><h2>Де ставлять нашу кавомашину</h2><div class="rh-hsub">Офіс, салон, магазин, дім.</div></div>
   <div class="rh-seg">{seg_html}</div>
 </div></section>
 
 <section class="rh-sec" style="background:var(--crema)"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">ДОВІРА</div><h2>Чому саме NPRO MAX</h2><div class="rh-hsub">Власне обсмаження кави та повний супровід оренди.</div></div>
+  <div class="rh-head"><div class="rh-kicker">ДОВІРА</div><h2>Чому саме NPRO MAX</h2><div class="rh-hsub">Своє обсмаження + повний супровід.</div></div>
   <div class="rh-why">{why_html}</div>
   <div class="b2b-band" style="margin-top:26px"><div class="b2b-txt"><div class="kicker">ВІДГУКИ</div><h2 style="color:#fff">4 400+ відгуків на Prom.ua</h2><p>Реальні оцінки покупців нашої кави. Договір оренди, доставка по всій Україні.</p></div><a href="https://npro.prom.ua" rel="nofollow" class="btn btn-lg">Дивитись відгуки</a></div>
 </div></section>
