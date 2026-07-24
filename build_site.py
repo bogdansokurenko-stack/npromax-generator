@@ -101,7 +101,7 @@ def layout(title, desc, body, active='', canonical=''):
 <meta property="og:locale" content="uk_UA">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#221510">
-<link rel="stylesheet" href="assets/style.css?v=8">
+<link rel="stylesheet" href="assets/style.css?v=9">
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"NPROMAX","url":"https://www.npromax.com.ua/","email":"info@npromax.com.ua","description":"Інтернет-магазин кави NPROMAX: зернова, свіжомелена, капсульна кава, E.S.E. монодози та рішення для бізнесу.","sameAs":["https://npro.prom.ua"]}}</script>
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"WebSite","name":"NPROMAX","url":"https://www.npromax.com.ua/","inLanguage":"uk-UA","potentialAction":{{"@type":"SearchAction","target":"https://www.npromax.com.ua/catalog.html?q={{search_term_string}}","query-input":"required name=search_term_string"}}}}</script>
 </head>
@@ -620,6 +620,15 @@ h1{font-size:34px}h2{font-size:26px}
 }
 
 /* ==================== ПРЕМІУМ-ЛЕНДИНГ ОРЕНДИ (rental hub v2) ==================== */
+/* video facade */
+.rh-video{position:relative;max-width:900px;margin:0 auto;aspect-ratio:16/9;border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 30px 70px -30px rgba(0,0,0,.5);background:#000}
+.rh-video img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s,opacity .3s}
+.rh-video:hover img{transform:scale(1.04);opacity:.82}
+.rh-video iframe{width:100%;height:100%;border:0;display:block}
+.rh-play{position:absolute;inset:0;margin:auto;width:88px;height:62px;border:0;background:none;cursor:pointer;padding:0}
+.rh-play svg{width:100%;height:100%;filter:drop-shadow(0 6px 16px rgba(0,0,0,.45));transition:transform .2s}
+.rh-video:hover .rh-play svg{transform:scale(1.12)}
+
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
@@ -1685,7 +1694,7 @@ RENT_FREE_CHALDS=600
 RENT_FEE=1000
 RENT_COLORS={
  'bila':{'name':'біла','acc':'білу','model':'POLTI Coffea S18W','url':'orenda-kavomashyny-polti-bila.html','img':'assets/img/polti-bila.jpg','photo':True,'npx':'NPX-032'},
- 'chorna':{'name':'чорна','acc':'чорну','model':'POLTI Coffea S18B','url':'orenda-kavomashyny-polti-chorna.html','img':'assets/img/mood.jpg','photo':False,'npx':'NPX-033'},
+ 'chorna':{'name':'чорна','acc':'чорну','model':'POLTI Coffea S15B','url':'orenda-kavomashyny-polti-chorna.html','img':'assets/img/polti-chorna.jpg','photo':False,'npx':'NPX-033'},
 }
 POLTI_SPECS=[
  ('Сумісність','Чалди E.S.E. 44 мм (паперові монодози)'),
@@ -1917,6 +1926,7 @@ RENTAL_JS = r'''
   }
   r.addEventListener('input',upd); upd();
 })();
+window.rhPlay=function(el){el.innerHTML='<iframe src="https://www.youtube.com/embed/'+el.dataset.id+'?autoplay=1&rel=0" title="POLTI Coffea" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';};
 </script>
 '''
 
@@ -2100,11 +2110,6 @@ def rental_hub(cards):
   </div>
 </div></section>
 
-<section class="rh-sec"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">КАВОМАШИНА POLTI COFFEA S18</div><h2>Переваги апарата</h2><div class="rh-hsub">Компактна, проста й надійна — професійний еспресо без бариста.</div></div>
-  <div class="rh-feat">{feat_html}</div>
-</div></section>
-
 <section class="rh-sec" style="background:var(--crema)"><div class="rh-wrap ese-explain reveal">
   <div class="ese-txt">
     <div class="rh-kicker">ПРОСТО ПРО ГОЛОВНЕ</div>
@@ -2125,9 +2130,25 @@ def rental_hub(cards):
 </div></section>
 
 <section class="rh-sec"><div class="rh-wrap reveal">
-  <div class="section-h row"><div><h2>Асортимент чалдів E.S.E.</h2><div class="sub">Саме на цій каві машина працює безкоштовно{cup_line}</div></div><a href="monodozy-ese.html" class="more">Усі монодози {ICON['arrow']}</a></div>
+  <div class="rh-head"><div class="rh-kicker">КАВА ДЛЯ ВАШОЇ КАВОМАШИНИ</div><h2>Оберіть каву — і машина працює безкоштовно</h2><div class="rh-hsub">Обладнання й кава — одна готова система. Чалди E.S.E. купуєте тут, за цінами сайту <b>без прихованих націнок</b> — шукати інших постачальників не потрібно{cup_line}.</div></div>
   <div class="chald-grid">{chalds_html}</div>
+  <div style="text-align:center;margin-top:30px"><a href="monodozy-ese.html" class="btn btn-lg">Перейти до каталогу чалдів {ICON['arrow']}</a></div>
 </div></section>
+
+<section class="rh-sec"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">КАВОМАШИНА POLTI COFFEA S18</div><h2>Переваги апарата</h2><div class="rh-hsub">Компактна, проста й надійна — професійний еспресо без бариста.</div></div>
+  <div class="rh-feat">{feat_html}</div>
+</div></section>
+
+<section class="rh-sec" style="background:var(--soft)"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">ВІДЕО</div><h2>Кавомашина POLTI Coffea в дії</h2><div class="rh-hsub">Подивіться, як просто готувати еспресо на чалдах E.S.E. — одна кнопка, і чашка готова.</div></div>
+  <div class="rh-video" onclick="rhPlay(this)" data-id="msJSEkVrUDg">
+    <img src="https://img.youtube.com/vi/msJSEkVrUDg/hqdefault.jpg" alt="Відео огляд кавомашини POLTI Coffea для чалдів E.S.E." width="900" height="506" loading="lazy">
+    <button class="rh-play" aria-label="Відтворити відео"><svg viewBox="0 0 68 48"><path d="M66.5 7.7c-.8-2.9-3-5.1-5.9-5.9C55.3.5 34 .5 34 .5S12.7.5 7.4 1.8C4.5 2.6 2.3 4.8 1.5 7.7.2 13 .2 24 .2 24s0 11 1.3 16.3c.8 2.9 3 5.1 5.9 5.9C12.7 47.5 34 47.5 34 47.5s21.3 0 26.6-1.3c2.9-.8 5.1-3 5.9-5.9C67.8 35 67.8 24 67.8 24s0-11-1.3-16.3z" fill="#f00"/><path d="M27 34l18-10-18-10z" fill="#fff"/></svg></button>
+  </div>
+</div></section>
+
+
 
 <section class="rh-sec" style="background:var(--soft)"><div class="rh-wrap reveal">
   <div class="rh-head"><div class="rh-kicker">ЯК ЦЕ ПРАЦЮЄ</div><h2>Оренда — у 4 кроки</h2><div class="rh-hsub">Від заявки до першої чашки кави.</div></div>
