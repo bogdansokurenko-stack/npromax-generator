@@ -628,6 +628,13 @@ h1{font-size:34px}h2{font-size:26px}
 .rh-play{position:absolute;inset:0;margin:auto;width:88px;height:62px;border:0;background:none;cursor:pointer;padding:0}
 .rh-play svg{width:100%;height:100%;filter:drop-shadow(0 6px 16px rgba(0,0,0,.45));transition:transform .2s}
 .rh-video:hover .rh-play svg{transform:scale(1.12)}
+/* photo gallery */
+.rh-gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:34px}
+.rh-gallery a{display:block;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--soft);aspect-ratio:3/4;box-shadow:0 10px 26px rgba(60,35,10,.08);transition:transform .3s,box-shadow .3s}
+.rh-gallery a:hover{transform:translateY(-4px);box-shadow:0 20px 42px rgba(60,35,10,.15)}
+.rh-gallery img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:820px){.rh-gallery{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.rh-gallery{grid-template-columns:1fr 1fr}}
 
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
@@ -1694,7 +1701,7 @@ RENT_FREE_CHALDS=600
 RENT_FEE=1000
 RENT_COLORS={
  'bila':{'name':'біла','acc':'білу','model':'POLTI Coffea S18W','url':'orenda-kavomashyny-polti-bila.html','img':'assets/img/polti-bila.jpg','photo':True,'npx':'NPX-032'},
- 'chorna':{'name':'чорна','acc':'чорну','model':'POLTI Coffea S15B','url':'orenda-kavomashyny-polti-chorna.html','img':'assets/img/polti-chorna.jpg','photo':False,'npx':'NPX-033'},
+ 'chorna':{'name':'чорна','acc':'чорну','model':'POLTI Coffea S15B','url':'orenda-kavomashyny-polti-chorna.html','img':'assets/img/polti-chorna.jpg','photo':True,'npx':'NPX-033'},
 }
 POLTI_SPECS=[
  ('Сумісність','Чалди E.S.E. 44 мм (паперові монодози)'),
@@ -1980,6 +1987,12 @@ def rental_hub(cards):
         (_svg('<path d="M4 8h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 9h2.2a2 2 0 0 1 0 5H16"/><path d="M7 3v2M11 3v2"/>'),'Ідеальна кава щоразу','Однаковий смак і щільна пінка'),
     ]
     feat_html=''.join('<div class="ft"><div class="ft-ic">%s</div><b>%s</b><span>%s</span></div>'%(ic,t,d) for ic,t,d in FEAT)
+    GALLERY=[('polti-bila-a','Кавомашина POLTI Coffea S18W (біла) — вигляд збоку'),
+             ('polti-bila-b','Кавомашина POLTI Coffea S18W (біла) — верхня частина'),
+             ('polti-chorna','Кавомашина POLTI Coffea S15B (чорна) — фронт із логотипом Coffea'),
+             ('polti-chorna-a','Кавомашина POLTI Coffea S15B (чорна) — вигляд 3/4'),
+             ('polti-chorna-b','Кавомашина POLTI Coffea S15B (чорна) — панель керування зверху')]
+    gallery_html=''.join('<a href="assets/img/%s.jpg" target="_blank" rel="noopener"><picture><source srcset="assets/img/%s.webp" type="image/webp"><img src="assets/img/%s.jpg" alt="%s" loading="lazy" width="562" height="1000"></picture></a>'%(b,b,b,esc(a)) for b,a in GALLERY)
 
     SEG = [('Офіс',_svg('<path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16"/><path d="M15 9h4a1 1 0 0 1 1 1v11"/><line x1="2" y1="21" x2="22" y2="21"/><line x1="8" y1="8" x2="8" y2="8"/><line x1="11" y1="8" x2="11" y2="8"/>')),
         ('Салон краси',_svg('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.1" y2="15.9"/><line x1="8.1" y1="8.1" x2="20" y2="20"/>')),
@@ -2136,8 +2149,10 @@ def rental_hub(cards):
 </div></section>
 
 <section class="rh-sec"><div class="rh-wrap reveal">
-  <div class="rh-head"><div class="rh-kicker">КАВОМАШИНА POLTI COFFEA S18</div><h2>Переваги апарата</h2><div class="rh-hsub">Компактна, проста й надійна — професійний еспресо без бариста.</div></div>
+  <div class="rh-head"><div class="rh-kicker">КАВОМАШИНА POLTI COFFEA</div><h2>Переваги апарата</h2><div class="rh-hsub">Компактна, проста й надійна — професійний еспресо без бариста. Біла S18W або чорна S15B.</div></div>
   <div class="rh-feat">{feat_html}</div>
+  <div class="rh-gallery">{gallery_html}</div>
+  <div style="text-align:center;margin-top:16px;color:var(--muted);font-size:14px">Реальні фото апарата · колір (біла S18W / чорна S15B) обираєте у заявці</div>
 </div></section>
 
 <section class="rh-sec" style="background:var(--soft)"><div class="rh-wrap reveal">
@@ -2256,6 +2271,12 @@ def build():
         _s=os.path.join(_srcdir,_fn)
         if os.path.exists(_s):
             try: shutil.copy(_s, os.path.join(_imgdst,_fn))
+            except Exception: pass
+    # нові фото доставляються через git-репо: gen/assets/img/* -> www/assets/img
+    _repoimg=os.path.join(_srcdir,'gen','assets','img')
+    if os.path.isdir(_repoimg):
+        for _fn in os.listdir(_repoimg):
+            try: shutil.copy(os.path.join(_repoimg,_fn), os.path.join(_imgdst,_fn))
             except Exception: pass
     write_css(); write_js()
     def W(name,content): open(os.path.join(SITE,name),'w',encoding='utf-8').write(content)
