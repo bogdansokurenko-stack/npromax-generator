@@ -46,13 +46,9 @@ def money(v):
     return f"{int(round(v)):,}".replace(',', ' ')
 
 def logo_svg(h=30, dark=False):
-    # Преміальний мінімалістичний знак: кавове зерно в колі + чистий вордмарк NPRO/MAX.
-    # Монохромно-адаптивний: 'ink' світлішає на темному фоні, помаранчевий акцент постійний.
-    ink = '#F4EEE6' if dark else '#241812'
-    return f'''<svg viewBox="0 0 292 60" height="{h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NPROMAX" style="display:block">
-<g transform="translate(30,30)"><circle r="25" fill="#EE7A0E"/><circle r="25" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="1.5"/><path d="M0,-16.5 C 10.5,-6 -10.5,6 0,16.5" stroke="#fff" stroke-width="3.1" fill="none" stroke-linecap="round" opacity=".96"/></g>
-<text x="67" y="40" font-family="'Segoe UI',system-ui,-apple-system,Arial,sans-serif" font-weight="800" font-size="33" letter-spacing="0.4" fill="{ink}">NPRO<tspan fill="#EE7A0E">MAX</tspan></text>
-</svg>'''
+    f = 'logo-npromax-w.png' if dark else 'logo-npromax.png'
+    w = round(h*5.06)
+    return f'''<img src="assets/img/{f}" alt="NPROMAX" width="{w}" height="{h}" style="display:block;height:{h}px;width:auto" decoding="async">'''
 
 ICON = {
  'search':'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>',
@@ -635,6 +631,20 @@ h1{font-size:34px}h2{font-size:26px}
 .rh-gallery img{width:100%;height:100%;object-fit:cover;display:block}
 @media(max-width:820px){.rh-gallery{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:480px){.rh-gallery{grid-template-columns:1fr 1fr}}
+/* чалди: состав + опис */
+.chald-comp{display:inline-block;background:var(--orange-l);color:var(--orange-d);font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;margin:5px 0 3px}
+.chald-desc{display:block;font-size:12px;color:var(--muted);margin:1px 0 2px}
+/* промоблок аренды на главной */
+.home-rent{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;background:radial-gradient(120% 130% at 100% 0%,#3a2417,var(--espresso));color:#fff;border-radius:22px;padding:40px 44px;overflow:hidden}
+.home-rent .kicker{color:var(--orange);letter-spacing:2px;font-size:12px;font-weight:700;margin-bottom:12px}
+.home-rent h2{font-size:clamp(26px,3.2vw,38px);line-height:1.1;margin-bottom:14px;color:#fff}
+.home-rent h2 span{color:var(--orange)}
+.home-rent p{color:#d9ccc0;font-size:16px;line-height:1.6;margin-bottom:22px;max-width:540px}
+.hr-vis{position:relative;justify-self:center;max-width:320px}
+.hr-vis img{width:100%;border-radius:16px;display:block;background:#fff}
+.hr-chip{position:absolute;left:-14px;bottom:18px;background:var(--orange);color:#fff;border-radius:14px;padding:10px 16px;font-size:24px;font-weight:800;line-height:1;box-shadow:0 14px 30px rgba(238,122,14,.45)}
+.hr-chip small{font-size:12px;font-weight:600}
+@media(max-width:820px){.home-rent{grid-template-columns:1fr;text-align:center;padding:32px 22px}.home-rent p{margin-left:auto;margin-right:auto}.hr-vis{max-width:240px;margin:0 auto}}
 
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
@@ -1156,6 +1166,17 @@ def home(cards, counts):
   <div class="strip-item">{ICON['star']}<div><b>100% арабіка</b><span>моносорти світу</span></div></div>
   <div class="strip-item">{ICON['shield']}<div><b>Nespresso / Dolce Gusto</b><span>сумісні капсули</span></div></div>
   <div class="strip-item">{ICON['truck']}<div><b>Доставка по Україні</b><span>Нова Пошта</span></div></div>
+</div></section>
+<section class="section" style="padding-top:38px" id="orenda"><div class="wrap">
+  <div class="home-rent">
+    <div class="hr-txt">
+      <div class="kicker">НАША ОСНОВНА ПОСЛУГА</div>
+      <h2>Оренда кавомашини — <span>0 ₴/міс</span></h2>
+      <p>Ставимо нову кавомашину POLTI у вас, а платите лише за каву. Купуєте <b>від 600 чалдів E.S.E.</b> на місяць — оренда <b>безкоштовна</b>. Менше — фіксовано 1000 ₴/міс. Обладнання й кава — одна готова система.</p>
+      <a href="orenda-kavomashyny.html" class="btn btn-lg">Дізнатись про оренду {ICON['arrow']}</a>
+    </div>
+    <div class="hr-vis"><picture><source srcset="assets/img/polti-bila.webp" type="image/webp"><img src="assets/img/polti-bila.jpg" alt="Оренда кавомашини POLTI Coffea для чалдів E.S.E." width="900" height="900" loading="lazy"></picture><span class="hr-chip">0 ₴<small>/міс</small></span></div>
+  </div>
 </div></section>
 <section class="section" style="background:var(--crema)"><div class="wrap">
   <div class="section-h"><h2>Оберіть свій формат</h2><div class="sub">Від моносортів до капсул, монодоз і рішень для бізнесу</div></div>
@@ -1953,10 +1974,18 @@ def rental_hub(cards):
         q=x['params'].get('Количество в упаковке (шт.)') or x['params'].get('Количество в упаковке') or ''
         pc=per_cup(x); pc_s=('≈ %.1f грн/чашка'%pc).replace('.',',') if pc else ''
         nm=x['title'].replace('Кава в монодозах NPROMAX ','').split(' стандарту')[0].split(' аромат')[0].strip()
+        pm=x['params']; vk=(pm.get('Вид кофе','') or '').lower()
+        comp=('Арабіка + робуста' if ('арабик' in vk and 'робуст' in vk) else '100% Арабіка' if 'арабик' in vk else '100% Робуста' if 'робуст' in vk else '')
+        kr=(pm.get('Крепость кофе','') or '').lower()
+        sd=('м’який' if 'мягк' in kr else 'збалансований' if 'средн' in kr else 'міцний' if 'крепк' in kr else '')
+        if x.get('decaf'): sd=('без кофеїну'+(' · '+sd if sd else ''))
         return ('<a class="chald-card" href="p-%s.html">'
           '<div class="chald-img"><img src="%s" alt="Монодози E.S.E. NPROMAX %s" loading="lazy" width="320" height="320"></div>'
-          '<div class="chald-b"><b>%s</b><span class="chald-q">%s шт · %s ₴</span>%s</div></a>') % (
-          esc(x['slug']), esc(x['image']), esc(nm), esc(nm), esc(str(q)), money(x['price_min']),
+          '<div class="chald-b"><b>%s</b>%s<span class="chald-q">%s шт · %s ₴</span>%s%s</div></a>') % (
+          esc(x['slug']), esc(x['image']), esc(nm), esc(nm),
+          ('<span class="chald-comp">%s</span>'%esc(comp) if comp else ''),
+          esc(str(q)), money(x['price_min']),
+          ('<span class="chald-desc">%s</span>'%esc(sd) if sd else ''),
           ('<span class="chald-pc">%s</span>'%pc_s if pc_s else ''))
     chalds_html=''.join(chald_card(x) for x in ese)
     specs_html=''.join('<div class="spec-cell"><span>%s</span><b>%s</b></div>'%(esc(k),esc(v)) for k,v in POLTI_SPECS)
