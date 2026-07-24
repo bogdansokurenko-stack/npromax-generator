@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.log
+site_products.json
+prom_feed.xml
+out/
+.DS_Store
+# страховка: секреты и серверные файлы не должны попадать сюда
+sync.sh
+*.bak-*
