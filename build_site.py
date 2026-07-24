@@ -106,8 +106,10 @@ def layout(title, desc, body, active='', canonical=''):
   <div class="wrap tb">
     <span>Доставка по всій Україні · Нова Пошта</span>
     <span class="tb-right">
-      <a href="mailto:info@npromax.com.ua">{ICON['phone']} info@npromax.com.ua</a>
-      <span>Пн–Пт 9:00–18:00</span>
+      <a href="tel:+380975751647" class="tb-phone">{ICON['phone']} +38 (097) 575-16-47</a>
+      <a href="viber://chat?number=%2B380975751647" rel="nofollow" class="tb-viber">Viber</a>
+      <a href="mailto:info@npromax.com.ua" class="tb-mail">info@npromax.com.ua</a>
+      <span class="tb-hours">Пн–Пт 9:00–18:00</span>
     </span>
   </div>
 </div>
@@ -117,6 +119,7 @@ def layout(title, desc, body, active='', canonical=''):
     <a href="/" class="logo">{logo_svg(34)}</a>
     <nav class="nav">{navlinks}</nav>
     <div class="hd-actions">
+      <a href="tel:+380975751647" class="icon-btn hd-phone" aria-label="Подзвонити">{ICON['phone']}</a>
       <button class="icon-btn" id="searchToggle" onclick="toggleSearch()" aria-label="Пошук" aria-controls="searchbar" aria-expanded="false">{ICON['search']}</button>
       <a href="cart.html" class="icon-btn cart-link" aria-label="Кошик">{ICON['cart']}<span class="cart-badge" id="cartBadge">0</span></a>
     </div>
@@ -148,6 +151,8 @@ def layout(title, desc, body, active='', canonical=''):
       <a href="privacy.html">Політика конфіденційності</a><a href="oferta.html">Публічна оферта</a><a href="terms.html">Користувацька угода</a>
       <a href="kava-dlya-biznesu.html">Кава для бізнесу</a><a href="orenda-kavomashyny.html">Оренда кавомашини</a><a href="academy.html">Академія смаку</a></div>
     <div class="ft-col"><h4>Контакти</h4>
+      <a href="tel:+380975751647">{ICON['phone']} +38 (097) 575-16-47</a>
+      <a href="viber://chat?number=%2B380975751647" rel="nofollow">Viber</a>
       <a href="mailto:info@npromax.com.ua">info@npromax.com.ua</a>
       <a href="kontakty.html">Форма зв'язку</a>
       <p class="ft-small">Пн–Пт 9:00–18:00 · Україна</p></div>
@@ -217,6 +222,12 @@ h1{font-size:34px}h2{font-size:26px}
 .tb-right a{display:inline-flex;align-items:center;gap:6px}
 .tb-right a:hover{color:#fff}
 .langs b{color:var(--orange)}
+.tb-phone{font-weight:700;color:#fff}
+.tb-viber{color:#c8b8ff;font-weight:700}
+.hd-phone{display:none}
+@media(max-width:720px){.hd-phone{display:inline-flex;color:var(--orange)}
+ .tb-mail,.tb-hours{display:none}
+ .tb-right{gap:14px}}
 /* header */
 .header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
 .hd{display:flex;align-items:center;gap:24px;height:70px}
@@ -1800,7 +1811,7 @@ def _rent_form_hub():
   <div class="form-row"><label>Колір кавомашини</label>
     <div class="clr-pick">
       <label><input type="radio" name="color" value="bila" checked> Біла (S18W)</label>
-      <label><input type="radio" name="color" value="chorna"> Чорна (S18B)</label>
+      <label><input type="radio" name="color" value="chorna"> Чорна (S15B)</label>
     </div></div>
   <div class="form-row"><label>Тип закладу</label><select name="place"><option>Дім</option><option>Офіс</option><option>Кафе / кав’ярня</option><option>Магазин</option><option>Салон краси / барбершоп</option><option>Інше</option></select></div>
   <div class="form-row"><label>Місто</label><input name="city" placeholder="Місто"></div>
@@ -2230,7 +2241,7 @@ def rental_hub(cards):
   <div class="steps">
     <div class="step"><span class="step-n">1</span><h3>Залишаєте заявку</h3><p>Ім’я, телефон і колір апарата.</p></div>
     <div class="step"><span class="step-n">2</span><h3>Ми доставляємо машину</h3><p>Узгоджуємо умови оренди й договір.</p></div>
-    <div class="step"><span class="step-n">3</span><h3>Замовляєте чалди</h3><p>Обираєте кану до смаку — ми на зв’язку.</p></div>
+    <div class="step"><span class="step-n">3</span><h3>Замовляєте чалди</h3><p>Обираєте каву до смаку — ми на зв’язку.</p></div>
     <div class="step"><span class="step-n">4</span><h3>Насолоджуєтесь кавою</h3><p>Професійний еспресо щодня.</p></div>
   </div>
 </div></section>
@@ -2268,7 +2279,7 @@ def rental_hub(cards):
 <div style="height:8px"></div>
 '''
     body += RENTAL_JS
-    return layout('Оренда кавомашини POLTI Coffea S18 для чалдів E.S.E. — 0 грн/міс | NPROMAX',
+    return layout('Оренда кавомашини POLTI Coffea для чалдів E.S.E. — 0 грн/міс | NPROMAX',
       'Оренда нової кавомашини POLTI Coffea S18 для дому та бізнесу: від 600 чалдів E.S.E. на місяць — 0 грн/міс, інакше 1000 грн. Калькулятор економії, умови, доставка по Україні.',
       body, active='kava-dlya-biznesu', canonical='orenda-kavomashyny.html')
 
@@ -2415,6 +2426,9 @@ def build():
 <li>Email: <a href="mailto:info@npromax.com.ua" style="color:var(--orange)">info@npromax.com.ua</a></li>
 <li>Графік: Пн–Пт 9:00–18:00 (Київський час)</li>
 <li>Магазин на Prom.ua: <a href="https://npro.prom.ua" style="color:var(--orange)" rel="nofollow">npro.prom.ua</a></li></ul>
+<p style="font-size:20px;margin-bottom:6px"><a href="tel:+380975751647" style="color:var(--orange);font-weight:800">{ICON['phone']} +38 (097) 575-16-47</a></p>
+<p style="margin-bottom:6px"><a href="viber://chat?number=%2B380975751647" rel="nofollow" style="color:#7360F2;font-weight:700">Viber</a> · <a href="mailto:info@npromax.com.ua" style="color:var(--orange)">info@npromax.com.ua</a></p>
+<p style="color:var(--muted);margin-bottom:22px">Пн–Пт 9:00–18:00. Дзвоніть або пишіть — відповімо швидко.</p>
 <h2>Напишіть нам</h2>
 <form onsubmit="contactSend(event)" style="max-width:480px">
 <div class="form-row"><label>Ім’я *</label><input name="name" required placeholder="Як до вас звертатися"></div>
