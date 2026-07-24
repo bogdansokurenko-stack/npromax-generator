@@ -677,6 +677,17 @@ h1{font-size:34px}h2{font-size:26px}
 .rh-chip{position:absolute;left:-16px;bottom:30px;background:var(--orange);color:#fff;border-radius:20px;padding:15px 22px;box-shadow:0 18px 38px rgba(238,122,14,.5);text-align:center;transform:rotate(-4deg)}
 .rh-chip .p0{font-size:36px;font-weight:800;line-height:.95}
 .rh-chip .pc{font-size:12px;opacity:.95;display:block;margin-top:3px}
+.rh-prices{display:flex;align-items:stretch;gap:14px;margin-bottom:28px;max-width:520px}
+.rp{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:16px 14px;text-align:center}
+.rp-free{background:linear-gradient(160deg,rgba(238,122,14,.24),rgba(238,122,14,.06));border-color:rgba(238,122,14,.55)}
+.rp b{display:block;font-size:clamp(28px,4vw,36px);font-weight:800;line-height:1;color:#fff}
+.rp-free b{color:var(--orange)}
+.rp b small{font-size:14px;font-weight:600;opacity:.85}
+.rp span{display:block;font-size:12px;color:#cdbfb2;margin-top:7px;line-height:1.3}
+.rp-or{align-self:center;font-size:13px;color:#a89787;font-weight:600}
+.rh-btn-alt{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);color:#fff}
+.rh-btn-alt:hover{background:rgba(255,255,255,.2)}
+@media(max-width:560px){.rh-prices{flex-direction:column;margin-left:auto;margin-right:auto}.rp-or{padding:2px 0}}
 
 /* TARIFFS */
 .rh-tiers{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
@@ -2072,12 +2083,16 @@ def rental_hub(cards):
 <section class="rh-hero"><div class="rh-hero-in">
   <div class="rh-hero-txt">
     <div class="rh-eyebrow">POLTI COFFEA · ЧАЛДИ E.S.E. 44 ММ</div>
-    <h1>Оренда нової кавомашини — <span class="hl">від 1000 ₴/міс</span> або <span class="hl">безкоштовно</span></h1>
-    <p class="rh-lead">Ви платите лише за каву, яку й так п’єте.</p>
-    <div class="rh-fire">🔥&nbsp;<span>Від <b>600 чалдів E.S.E. на місяць</b> — оренда кавомашини <b>безкоштовна</b>.</span></div>
+    <h1>Нова кавомашина у вас — <span class="hl">0 ₴/міс</span></h1>
+    <p class="rh-lead">Кавомашина + кава = готове рішення. Платите лише за каву, яку й так п’єте.</p>
+    <div class="rh-prices">
+      <div class="rp rp-free"><b>0 ₴<small>/міс</small></b><span>від 600 чалдів E.S.E. на місяць</span></div>
+      <div class="rp-or">або</div>
+      <div class="rp"><b>1000 ₴<small>/міс</small></b><span>якщо менше 600 чалдів</span></div>
+    </div>
     <div class="rh-herocta">
-      <a href="#zayavka" class="btn btn-lg">Отримати консультацію</a>
-      <a href="#tarify" class="btn btn-ghost btn-lg">Два тарифи</a>
+      <a href="#zayavka" class="btn btn-lg">Отримати кавомашину</a>
+      <a href="#chaldy" class="btn btn-lg rh-btn-alt">Обрати чалди</a>
     </div>
     <div class="rh-trust"><span>{ICON['check']}Нова машина</span><span>{ICON['truck']}Доставка по Україні</span><span>{ICON['shield']}Договір оренди</span></div>
   </div>
@@ -2176,10 +2191,21 @@ def rental_hub(cards):
   </div>
 </div></section>
 
-<section class="rh-sec"><div class="rh-wrap reveal">
+<section class="rh-sec" id="chaldy"><div class="rh-wrap reveal">
   <div class="rh-head"><div class="rh-kicker">КАВА ДЛЯ ВАШОЇ КАВОМАШИНИ</div><h2>Оберіть каву — і машина працює безкоштовно</h2><div class="rh-hsub">Обладнання й кава — одна система. Чалди тут, за цінами сайту, <b>без націнок</b>{cup_line}.</div></div>
   <div class="chald-grid">{chalds_html}</div>
   <div style="text-align:center;margin-top:30px"><a href="monodozy-ese.html" class="btn btn-lg">Перейти до каталогу чалдів {ICON['arrow']}</a></div>
+</div></section>
+<section class="rh-sec" style="background:var(--crema)"><div class="rh-wrap reveal">
+  <div class="rh-head"><div class="rh-kicker">ЧОМУ ЧАЛДИ — У НАС</div><h2>Кава й машина в одному місці</h2><div class="rh-hsub">Не треба шукати інших постачальників.</div></div>
+  <div class="rh-why">
+    <div class="rh-w"><div class="rh-w-ic">{ICON['check']}</div><div><b>Ціни сайту</b><span>Актуальні ціни, без прихованих націнок</span></div></div>
+    <div class="rh-w"><div class="rh-w-ic">{ICON['shield']}</div><div><b>Гарантія сумісності</b><span>Точний стандарт E.S.E. 44 мм</span></div></div>
+    <div class="rh-w"><div class="rh-w-ic">{ICON['check']}</div><div><b>Усе в одному місці</b><span>Оренда + кава на одному сайті</span></div></div>
+    <div class="rh-w"><div class="rh-w-ic">{ICON['refresh']}</div><div><b>Супровід оренди</b><span>Поруч протягом усього терміну</span></div></div>
+    <div class="rh-w"><div class="rh-w-ic">{ICON['truck']}</div><div><b>Регулярні поставки</b><span>Кава завжди на складі, Нова Пошта</span></div></div>
+    <div class="rh-w"><div class="rh-w-ic">{ICON['star']}</div><div><b>Власне обсмаження</b><span>Свіжа кава NPROMAX під ваш смак</span></div></div>
+  </div>
 </div></section>
 
 <section class="rh-sec"><div class="rh-wrap reveal">
