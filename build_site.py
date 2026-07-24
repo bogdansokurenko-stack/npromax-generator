@@ -641,7 +641,7 @@ h1{font-size:34px}h2{font-size:26px}
 .home-rent h2 span{color:var(--orange)}
 .home-rent p{color:#d9ccc0;font-size:16px;line-height:1.6;margin-bottom:22px;max-width:540px}
 .hr-vis{position:relative;justify-self:center;max-width:320px}
-.hr-vis img{width:100%;border-radius:16px;display:block;background:#fff}
+.hr-vis img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;display:block;background:#fff}
 .hr-chip{position:absolute;left:-14px;bottom:18px;background:var(--orange);color:#fff;border-radius:14px;padding:10px 16px;font-size:24px;font-weight:800;line-height:1;box-shadow:0 14px 30px rgba(238,122,14,.45)}
 .hr-chip small{font-size:12px;font-weight:600}
 @media(max-width:820px){.home-rent{grid-template-columns:1fr;text-align:center;padding:32px 22px}.home-rent p{margin-left:auto;margin-right:auto}.hr-vis{max-width:240px;margin:0 auto}}
@@ -1989,7 +1989,7 @@ def rental_hub(cards):
           ('<span class="chald-pc">%s</span>'%pc_s if pc_s else ''))
     chalds_html=''.join(chald_card(x) for x in ese)
     specs_html=''.join('<div class="spec-cell"><span>%s</span><b>%s</b></div>'%(esc(k),esc(v)) for k,v in POLTI_SPECS)
-    faq_items=[(q, a.replace('DECAF',decaf_link)) for q,a in HUB_FAQ_BASE]
+    faq_items=[(q, a.replace('DECAF',decaf_link)) for q,a in HUB_FAQ_BASE[:6]]
     faq_html=''.join('<details><summary>%s</summary><p>%s</p></details>'%(esc(q),a) for q,a in faq_items)
     cup_line=(' · від ~%d грн за чашку'%from_cup) if from_cup else ''
     # ---- schema ----
@@ -2090,7 +2090,7 @@ def rental_hub(cards):
       <div class="rh-ribbon">НАЙВИГІДНІШЕ</div>
       <div class="t-name">ВАРІАНТ 1</div>
       <div class="t-price">0 ₴<small> /міс оренди</small></div>
-      <p class="t-lead">Безкоштовна оренда за умови купівлі <b>від 600 чалдів E.S.E.</b> щомісяця.</p>
+      <p class="t-lead">Купуєте <b>від 600 чалдів E.S.E.</b> на місяць — оренда 0 ₴.</p>
       <div class="rh-flow">
         <div class="fl">{ICON['check']}<span>Отримуєте нову кавомашину POLTI</span></div>
         <div class="fl">{ICON['check']}<span>Замовляєте від 600 чалдів щомісяця</span></div>
@@ -2101,7 +2101,7 @@ def rental_hub(cards):
     <div class="rh-tier">
       <div class="t-name">ВАРІАНТ 2</div>
       <div class="t-price">1000 ₴<small> /міс оренди</small></div>
-      <p class="t-lead">Якщо потрібно <b>менше ніж 600 чалдів</b> на місяць — фіксована оренда апарата.</p>
+      <p class="t-lead"><b>Менше 600 чалдів</b> на місяць — фіксовано 1000 ₴.</p>
       <ul class="rh-tlist">
         <li>{ICON['check']}Та сама нова кавомашина POLTI</li>
         <li>{ICON['check']}Без зобов’язань щодо обсягу кави</li>
@@ -2118,20 +2118,20 @@ def rental_hub(cards):
     <div class="vs-col vs-rent">
       <h3>{ICON['check']} Оренда з NPRO MAX</h3>
       <ul>
-        <li>{ICON['check']}Не потрібно вкладати десятки тисяч гривень одразу</li>
-        <li>{ICON['check']}Обслуговування та підтримка — на нас</li>
+        <li>{ICON['check']}Без вкладень у техніку</li>
+        <li>{ICON['check']}Сервіс і підтримка — на нас</li>
         <li>{ICON['check']}Заміна апарата при несправності</li>
-        <li>{ICON['check']}Завжди сучасна, справна кавомашина</li>
-        <li>{ICON['check']}0 ₴/міс за умови купівлі від 600 чалдів</li>
+        <li>{ICON['check']}Завжди справна машина</li>
+        <li>{ICON['check']}0 ₴/міс від 600 чалдів</li>
       </ul>
     </div>
     <div class="vs-col vs-buy">
       <h3>Купівля апарата</h3>
       <ul>
-        <li>Десятки тисяч гривень одразу «заморожені» в техніці</li>
-        <li>Гарантійний ремонт і сервіс — ваш клопіт</li>
-        <li>Ризик, що модель застаріє</li>
-        <li>Простій у роботі, поки апарат у ремонті</li>
+        <li>Десятки тисяч ₴ одразу в техніку</li>
+        <li>Ремонт і сервіс — ваш клопіт</li>
+        <li>Ризик застарівання</li>
+        <li>Простій під час ремонту</li>
       </ul>
     </div>
   </div>
