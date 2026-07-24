@@ -1731,9 +1731,9 @@ def _rent_form(color_key):
 
 CONTACTS = {
     'email':'info@npromax.com.ua',
-    'phone_display':'',   # напр. '+38 (097) 000-00-00' — БЕЗ підтвердження власника не заповнювати
-    'phone_tel':'',       # напр. '+380970000000'
-    'viber':'', 'telegram':'', 'whatsapp':'',  # посилання; пусто = не показувати
+    'phone_display':'+38 (097) 575-16-47',   # напр. '+38 (097) 000-00-00' — БЕЗ підтвердження власника не заповнювати
+    'phone_tel':'+380975751647',       # напр. '+380970000000'
+    'viber':'viber://chat?number=%2B380975751647', 'telegram':'', 'whatsapp':'',  # посилання; пусто = не показувати
 }
 
 def _rent_form_hub():
@@ -1997,7 +1997,7 @@ def rental_hub(cards):
     _rows=''
     if ct.get('phone_tel'):
         _rows+='<a class="rh-ct" href="tel:%s">%s<span>%s</span></a>'%(ct['phone_tel'],ICON['phone'],esc(ct['phone_display'] or ct['phone_tel']))
-    _rows+='<a class="rh-ct" href="mailto:%s">%s<span>%s</span></a>'%(ct['email'],ICON['phone'],ct['email'])
+    _rows+='<a class="rh-ct" href="mailto:%s">%s<span>%s</span></a>'%(ct['email'],'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',ct['email'])
     _bubble='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 3 6.4 3 10.6c0 2.4 1.3 4.5 3.3 5.9-.1 1.1-.6 2.3-1.3 3.1-.2.2 0 .5.3.5 1.7-.2 3.2-.9 4.3-1.7.7.1 1.4.2 2.1.2 5.1 0 9-3.4 9-7.6S17.1 3 12 3z"/></svg>'
     _msgs=''
     if ct.get('viber'):    _msgs+='<a class="rh-msg viber" href="%s" rel="nofollow">%sViber</a>'%(ct['viber'],_bubble)
