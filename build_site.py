@@ -63,7 +63,7 @@ ICON = {
  'star':'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#EE7A0E" stroke-width="1.8"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>',
 }
 
-def layout(title, desc, body, active='', canonical=''):
+def layout(title, desc, body, active='', canonical='', og_image='', og_type='website', og_extra=''):
     navlinks = ''.join(
         f'<a href="{s}.html" class="{"nav-a active" if s==active else "nav-a"}">{CATMAP[s][1] if len(CATMAP[s][1])<20 else CATMAP[s][2].split("—")[0]}</a>'
         for s in NAV)
@@ -81,6 +81,27 @@ def layout(title, desc, body, active='', canonical=''):
         + '<div class="nav-menu" role="menu">' + cat_items + '</div></div>')
     navlinks = catalog_dd + navlinks
     drawer = ''.join(f'<a href="{c[0]}.html">{c[1]}</a>' for c in CATS)
+    # ---- FB/IG інтеграція: OG-прев'ю (окреме фото на сторінку), Meta Pixel, верифікація домену ----
+    B_='https://www.npromax.com.ua/'
+    og_img = og_image or (B_+'assets/img/mood.jpg')
+    og_url = B_ + (canonical or '')
+    sameas = ','.join('"%s"'%u for u in list(SOCIAL.values())+['https://npro.prom.ua'])
+    fb_verify = (f'<meta name="facebook-domain-verification" content="{esc(FB_DOMAIN_VERIFY)}">\n' if FB_DOMAIN_VERIFY else '')
+    pixel = ''
+    if META_PIXEL_ID:
+        pixel = ("<!-- Meta Pixel -->\n<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?"
+          "n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;"
+          "n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];"
+          "s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');"
+          f"fbq('init','{META_PIXEL_ID}');fbq('track','PageView');</script>\n"
+          f'<noscript><img height="1" width="1" style="display:none" alt="" '
+          f'src="https://www.facebook.com/tr?id={META_PIXEL_ID}&ev=PageView&noscript=1"/></noscript>\n<!-- End Meta Pixel -->\n')
+    _SICON={
+     'facebook':'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.75-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>',
+     'instagram':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
+     'youtube':'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 6.5C1 8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12zM9.8 15.3V8.7l6 3.3-6 3.3z"/></svg>'}
+    social_html=''.join('<a href="%s" class="ft-soc" target="_blank" rel="noopener" aria-label="%s">%s</a>'%(u,k.capitalize(),_SICON.get(k,'')) for k,u in SOCIAL.items() if u)
+    social_html=('<div class="ft-social">%s</div>'%social_html) if social_html else ''
     return f'''<!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -90,15 +111,21 @@ def layout(title, desc, body, active='', canonical=''):
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="https://www.npromax.com.ua/{canonical}">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23EE7A0E%22/%3E%3Cg transform=%22translate(32,32) rotate(-28)%22%3E%3Cellipse rx=%2214%22 ry=%2221%22 fill=%22%23fff%22/%3E%3Cpath d=%22M0,-19 C 9,-7 -9,7 0,19%22 stroke=%22%23EE7A0E%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<meta property="og:site_name" content="NPROMAX">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://www.npromax.com.ua/assets/img/mood.jpg">
+<meta property="og:type" content="{esc(og_type)}">
+<meta property="og:url" content="{esc(og_url)}">
+<meta property="og:image" content="{esc(og_img)}">
+<meta property="og:image:alt" content="{esc(title)}">
 <meta property="og:locale" content="uk_UA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#221510">
-<link rel="stylesheet" href="assets/style.css?v=9">
-<script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"NPROMAX","url":"https://www.npromax.com.ua/","email":"info@npromax.com.ua","description":"Інтернет-магазин кави NPROMAX: зернова, свіжомелена, капсульна кава, E.S.E. монодози та рішення для бізнесу.","sameAs":["https://npro.prom.ua"]}}</script>
+<meta name="twitter:title" content="{esc(title)}">
+<meta name="twitter:description" content="{esc(desc)}">
+<meta name="twitter:image" content="{esc(og_img)}">
+{og_extra}{fb_verify}<meta name="theme-color" content="#221510">
+{pixel}<link rel="stylesheet" href="assets/style.css?v=10">
+<script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"NPROMAX","url":"https://www.npromax.com.ua/","email":"info@npromax.com.ua","description":"Інтернет-магазин кави NPROMAX: зернова, свіжомелена, капсульна кава, E.S.E. монодози та рішення для бізнесу.","sameAs":[{sameas}]}}</script>
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"WebSite","name":"NPROMAX","url":"https://www.npromax.com.ua/","inLanguage":"uk-UA","potentialAction":{{"@type":"SearchAction","target":"https://www.npromax.com.ua/catalog.html?q={{search_term_string}}","query-input":"required name=search_term_string"}}}}</script>
 </head>
 <body>
@@ -140,6 +167,7 @@ def layout(title, desc, body, active='', canonical=''):
       <div class="ft-logo">{logo_svg(30, True)}</div>
       <p>Кава, яка дає максимум смаку без зайвої складності — для дому, офісу й бізнесу.</p>
       <p class="ft-slogan">NPROMAX — кава, яку хочеться повторити</p>
+      {social_html}
     </div>
     <div class="ft-col"><h4>Каталог</h4>
       <a href="kava-v-zernakh.html">Кава в зернах</a><a href="svizhomelena-kava.html">Свіжомелена кава</a>
@@ -487,6 +515,10 @@ h1{font-size:34px}h2{font-size:26px}
 .ft-col a{display:block;font-size:13.5px;padding:5px 0}
 .ft-col a:hover{color:var(--orange)}
 .ft-small{font-size:12.5px;margin-top:8px}
+.ft-social{display:flex;gap:12px;margin-top:16px}
+.ft-social .ft-soc{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);color:#e7dccb;transition:background .15s,color .15s}
+.ft-social .ft-soc svg{width:20px;height:20px}
+.ft-social .ft-soc:hover{background:var(--orange);color:#fff}
 .ft-legal{border-top:1px solid #3d2b1e;padding:18px 20px;display:flex;justify-content:space-between;gap:20px;font-size:11.5px;color:#888;flex-wrap:wrap}
 .ft-disc{max-width:640px}
 /* responsive */
@@ -825,7 +857,8 @@ function setCart(c){localStorage.setItem(CART_KEY,JSON.stringify(c));updateBadge
 function updateBadge(){var n=getCart().reduce((s,i)=>s+i.qty,0);document.querySelectorAll('#cartBadge').forEach(b=>{b.textContent=n;b.style.display=n?'flex':'none';});}
 function addToCart(p,qty){qty=qty||1;var c=getCart();var k=p.slug+'|'+(p.variant||'');var e=c.find(i=>i.key===k);
  if(e)e.qty+=qty;else c.push({key:k,slug:p.slug,sku:p.sku||'',title:p.title,price:p.price,img:p.img,variant:p.variant||'',qty:qty});
- setCart(c);toast('Додано в кошик: '+p.title);}
+ setCart(c);toast('Додано в кошик: '+p.title);
+ try{if(window.fbq)fbq('track','AddToCart',{content_ids:[p.sku||p.slug],content_name:p.title,content_type:'product',value:p.price*qty,currency:'UAH'});}catch(err){}}
 function toast(msg){var t=document.createElement('div');t.textContent=msg;
  t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:#fff;padding:13px 22px;border-radius:10px;z-index:999;font-size:14px;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,.25)';
  document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='.3s';setTimeout(()=>t.remove(),300)},1800);}
@@ -1058,6 +1091,7 @@ function submitOrder(e){e.preventDefault();var c=getCart();if(!c.length){toast('
   np_office:fd.get('np')||'',payment:fd.get('payment')||'',items:items,total:total+' грн'})
  .then(()=>{try{sessionStorage.setItem('npromax_last_order',JSON.stringify({id:num,value:total,
    items:c.map(i=>({item_id:i.sku||i.slug,item_name:i.title,price:i.price,quantity:i.qty}))}));}catch(err){}
+  try{if(window.fbq)fbq('track','InitiateCheckout',{value:total,currency:'UAH',num_items:c.reduce((s,i)=>s+i.qty,0),content_ids:c.map(i=>i.sku||i.slug),content_type:'product'});}catch(err){}
   localStorage.removeItem(CART_KEY);updateBadge();location.href='thank-you.html';})
  .catch(()=>{btn.disabled=false;btn.textContent='Оформити замовлення';toast('Не вдалося відправити. Напишіть на info@npromax.com.ua');});}
 // thank-you page (NPX-030): show order id + purchase event with repeat guard
@@ -1076,14 +1110,15 @@ function initThankYou(){var el=document.getElementById('tyOrder');if(!el)return;
  if(o&&o.id){el.textContent='Замовлення №'+o.id+' прийнято.';
   var flag='npx_purchase_'+o.id;
   if(!sessionStorage.getItem(flag)){sessionStorage.setItem(flag,'1');
-   ga('purchase',{transaction_id:o.id,value:o.value,currency:'UAH',items:o.items||[]});}}
+   ga('purchase',{transaction_id:o.id,value:o.value,currency:'UAH',items:o.items||[]});
+   try{if(window.fbq)fbq('track','Purchase',{value:o.value,currency:'UAH',content_ids:(o.items||[]).map(i=>i.item_id),content_type:'product'});}catch(e){}}}
  else{el.textContent='Замовлення прийнято.';}}
 function submitB2B(e){e.preventDefault();var f=e.target;var fd=new FormData(f);
  if(fd.get('_honey')){return;}
  var btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Відправляємо…';
  var data={};['name','phone','email','city','business','cups','equipment','products','comment'].forEach(k=>data[k]=fd.get(k)||'');
  fsSend('B2B заявка з npromax.com.ua',data)
- .then(()=>{ga('generate_lead',{type:'b2b'});f.style.display='none';document.getElementById('b2bThanks').style.display='block';})
+ .then(()=>{ga('generate_lead',{type:'b2b'});try{if(window.fbq)fbq('track','Lead',{content_name:'b2b'});}catch(e){}f.style.display='none';document.getElementById('b2bThanks').style.display='block';})
  .catch(()=>{btn.disabled=false;btn.textContent='Надіслати заявку';toast('Не вдалося відправити. Напишіть на info@npromax.com.ua');});}
 // NPX-032/033: захоплення UTM/fbclid (реклама FB/IG) у cookie на 30 днів
 var TRACK_KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'];
@@ -1563,7 +1598,8 @@ def product_page(card, cards):
     body=f'''
 <script type="application/ld+json">{jsonld}</script>
 <script type="application/ld+json">{breadcrumb_ld}</script>
-<script>var __pd={addbtn};window.__pdSlug=__pd.slug;window.__pdSku=__pd.sku;window.__pdTitle=__pd.title;window.__pdPrice=__pd.price;window.__pdImg=__pd.img;window.__pdVariant=__pd.variant;</script>
+<script>var __pd={addbtn};window.__pdSlug=__pd.slug;window.__pdSku=__pd.sku;window.__pdTitle=__pd.title;window.__pdPrice=__pd.price;window.__pdImg=__pd.img;window.__pdVariant=__pd.variant;
+try{{if(window.fbq)fbq('track','ViewContent',{{content_ids:[__pd.sku||__pd.slug],content_name:__pd.title,content_type:'product',value:__pd.price,currency:'UAH'}});}}catch(e){{}}</script>
 <div class="wrap"><div class="crumb"><a href="/">Головна</a><span>›</span><a href="{card['primary']}.html">{esc(meta[1])}</a><span>›</span>{esc(card['title'])}</div></div>
 <div class="wrap"><div class="pd">
   <div>
@@ -1613,7 +1649,17 @@ def product_page(card, cards):
     st=st.replace(', сумісних із системою Nespresso®',' — Nespresso Original сумісні').replace(', сумісних із системою Dolce Gusto®',' — Dolce Gusto сумісні').replace(', сумісних з системою Nespresso®',' — Nespresso Original сумісні')
     if len(st)>62: st=st[:62].rsplit(' ',1)[0]
     title=f"{st} купити | NPROMAX"
-    return layout(title, (desc_intro(card)[:150]), body, active='', canonical=f"p-{slug}.html")
+    # FB/IG: OG-прев'ю з фото товару + product-теги (ціна/наявність/бренд/SKU) для гарного шерингу й каталогу
+    og_extra=(f'<meta property="og:price:amount" content="{int(card["price_min"])}">\n'
+      f'<meta property="og:price:currency" content="UAH">\n'
+      f'<meta property="product:price:amount" content="{int(card["price_min"])}">\n'
+      f'<meta property="product:price:currency" content="UAH">\n'
+      f'<meta property="product:availability" content="{"in stock" if card["available"] else "out of stock"}">\n'
+      f'<meta property="product:condition" content="new">\n'
+      f'<meta property="product:brand" content="NPROMAX">\n'
+      f'<meta property="product:retailer_item_id" content="{esc(card["vendor_code"] or "")}">\n')
+    return layout(title, (desc_intro(card)[:150]), body, active='', canonical=f"p-{slug}.html",
+                  og_image=absu(imgs[0]), og_type='product', og_extra=og_extra)
 
 def b2b_page(cards):
     items=[c for c in cards if 'kava-dlya-biznesu' in c['cats']]
@@ -1809,6 +1855,17 @@ CONTACTS = {
     'phone_tel':'+380975751647',       # напр. '+380970000000'
     'viber':'viber://chat?number=%2B380975751647', 'telegram':'', 'whatsapp':'',  # посилання; пусто = не показувати
 }
+
+# ---- Соцмережі (підтверджені власником 25.07.2026) — футер, sameAs, зв'язок сайт↔FB/IG ----
+SOCIAL = {
+    'facebook':'https://www.facebook.com/profile.php?id=61551372554185',
+    'instagram':'https://www.instagram.com/npro_max/',
+    'youtube':'https://www.youtube.com/@NPRO_MAX',
+}
+# ---- Meta (Facebook/Instagram) інтеграція. Порожньо = НЕ рендериться (нічого не публікуємо без ID) ----
+# Pixel = наявний піксель бізнесу (портфоліо np1.com.ua, ~45k подій/28д) — Meta-практика: 1 піксель на всі домени.
+META_PIXEL_ID = '7286258248092581'                 # Meta Events Manager, dataset «np1.com.ua»
+FB_DOMAIN_VERIFY = '7ljygxae96zf4t1dg8tabpgteno13y' # домен npromax.com.ua у портфоліо np1.com.ua (Not Verified → підтвердити ПІСЛЯ деплою)
 
 def _rent_form_hub():
     """Форма хабу: видимий вибір кольору + приховані UTM/fbclid."""
@@ -2428,7 +2485,7 @@ def build():
 <li>Email: <a href="mailto:info@npromax.com.ua" style="color:var(--orange)">info@npromax.com.ua</a></li>
 <li>Графік: Пн–Пт 9:00–18:00 (Київський час)</li>
 <li>Магазин на Prom.ua: <a href="https://npro.prom.ua" style="color:var(--orange)" rel="nofollow">npro.prom.ua</a></li></ul>
-<p style="font-size:20px;margin-bottom:6px"><a href="tel:+380975751647" style="color:var(--orange);font-weight:800">{ICON['phone']} +38 (097) 575-16-47</a></p>
+<p style="font-size:20px;margin-bottom:6px"><a href="tel:+380975751647" style="color:var(--orange);font-weight:800">☎ +38 (097) 575-16-47</a></p>
 <p style="margin-bottom:6px"><a href="viber://chat?number=%2B380975751647" rel="nofollow" style="color:#7360F2;font-weight:700">Viber</a> · <a href="mailto:info@npromax.com.ua" style="color:var(--orange)">info@npromax.com.ua</a></p>
 <p style="color:var(--muted);margin-bottom:22px">Пн–Пт 9:00–18:00. Дзвоніть або пишіть — відповімо швидко.</p>
 <h2>Напишіть нам</h2>
