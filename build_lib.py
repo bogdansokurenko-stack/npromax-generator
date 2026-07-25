@@ -104,6 +104,14 @@ PRIMARY_ORDER=['kava-v-zernakh','svizhomelena-kava','kapsuly-nespresso','kapsuly
  'napoyi-v-kapsulakh','monodozy-ese','arabika-monosorty','aromatyzovana-kava','kavovi-kupazhi','kava-bez-kofeinu','kava-dlya-biznesu']
 
 # ---------- packaging / variant label ----------
+def pack_count(p):
+    # Кількість чалдів у коробці для E.S.E.-монодоз. Джерело істини — параметр
+    # «Количество в упаковке» (у назві може бути «50 х 7 г» без «шт» → regex не ловить).
+    q=p['params'].get('Количество в упаковке (шт.)') or p['params'].get('Количество в упаковке')
+    if q and str(q).strip().isdigit() and int(q)>0: return int(q)
+    m=re.search(r'(\d+)\s*шт', p['name_uk'] or '')
+    if m: return int(m.group(1))
+    return None
 def pack_label(p):
     n=p['name_uk'] or ''
     m=re.search(r'(\d+)\s*шт', n)
@@ -112,10 +120,16 @@ def pack_label(p):
     if m: return f"{m.group(1)} кг"
     w=p['params'].get('Вес')
     if w=='1000': return '1 кг'
+    if ptype(p)=='ese':                       # коробка «50 х 7 г» → «50 шт» з параметра
+        q=pack_count(p)
+        if q and q>1: return f"{q} шт"
     return None
 def pack_sort(p):
     m=re.search(r'(\d+)\s*шт', p['name_uk'] or '')
     if m: return int(m.group(1))
+    if ptype(p)=='ese':                       # менша коробка = представник (v0), ціна↔кількість з ОДНОГО варіанта
+        q=pack_count(p)
+        if q: return q
     return 999
 
 def clean_title(name, t):
@@ -173,6 +187,15 @@ def build_cards():
         vs0=sorted(variants, key=pack_sort)
         v0=vs0[0]   # smallest retail pack is the representative (not the "Ящик" box)
         t=forced_type or ptype(v0)
+        # E.S.E.: на Prom кожен NPROMAX-товар = ОДНА роздрібна коробка (50 шт). У експорт-фіді
+        # лишається фантомна групована «150 шт» (SKU -1, ×3 ціна) — на сторінці/у пошуку Prom її НЕМАЄ.
+        # Прибираємо її, лишаємо найменшу коробку (нічний ре-sync знову підтягне фід — тому фільтр тут).
+        if t=='ese':
+            packs=[pc for pc in (pack_count(x) for x in variants) if pc]
+            mn=min(packs) if packs else None
+            if mn is not None:
+                variants=[x for x in variants if pack_count(x)==mn] or variants
+                vs0=sorted(variants, key=pack_sort); v0=vs0[0]
         title=clean_title(v0['name_uk'], t)
         slug=translit(title)[:70].strip('-')
         # display-нормалізація мови (ПІСЛЯ slug — URL стабільні)
@@ -202,10 +225,14 @@ def build_cards():
             'business':any(is_business(x) for x in variants) or t in ('beans','ground'),
             'desc':v0.get('desc_uk') or '','vendor_code':v0.get('vendor_code'),
             'params':v0.get('params',{}),
-            'variants':[{'label':pack_label(x) or 'упаковка','price':x['price'],'sku':x['vendor_code'],'q':x['quantity']} for x in vs],
+            'variants':[{'label':pack_label(x) or 'упаковка','price':x['price'],'sku':x['vendor_code'],'q':x['quantity'],
+                         'pack':(pack_count(x) if t=='ese' else None)} for x in vs],
             'roast':v0['params'].get('Степень обжарки'),
             'caffeine':v0['params'].get('Кофеин'),
         }
+        # грн/чашка для E.S.E.: ціна коробки ÷ к-сть чалдів у ТІЙ САМІЙ коробці (усі варіанти дають однакову цифру)
+        cups=[v['price']/v['pack'] for v in card['variants'] if v.get('pack') and v.get('price')]
+        card['per_cup']=min(cups) if cups else None
         return card
     seen_slugs={}
     def dedupe(card):

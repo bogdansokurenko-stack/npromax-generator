@@ -176,7 +176,8 @@ def badge(card):
 
 def price_html(card):
     pfx = 'від ' if len(card['variants'])>1 else ''
-    return f'<div class="price"><span class="now">{pfx}{money(card["price_min"])} ₴</span></div>'
+    pc = ('<span class="per-cup">≈ %s ₴/чашка</span>'%(('%.1f'%card['per_cup']).replace('.',','))) if card.get('per_cup') else ''
+    return f'<div class="price"><span class="now">{pfx}{money(card["price_min"])} ₴</span>{pc}</div>'
 
 def card_html(card):
     data = f'data-slug="{esc(card["slug"])}" data-type="{card["type"]}" data-price="{int(card["price_min"])}" data-comp="{esc(card["composition"] or "")}" data-country="{esc(card["country"] or "")}" data-avail="{1 if card["available"] else 0}" data-aroma="{1 if card["aroma"] else 0}" data-decaf="{1 if card["decaf"] else 0}" data-name="{esc(card["title"].lower())}"'
@@ -318,9 +319,10 @@ h1{font-size:34px}h2{font-size:26px}
 .card-title:hover{color:var(--orange)}
 .card-meta{font-size:12px;color:var(--muted);margin:7px 0}
 .in-stock{color:var(--green);font-weight:600}.no-stock{color:#c33}
-.price{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+.price{display:flex;align-items:baseline;gap:8px;margin-top:auto;flex-wrap:wrap}
 .price .now{font-size:17px;font-weight:700;color:var(--ink)}
 .price .old{font-size:13px;color:var(--muted);text-decoration:line-through}
+.price .per-cup{flex-basis:100%;font-size:12px;font-weight:600;color:var(--muted);margin-top:1px}
 /* how to choose */
 .chips{display:flex;gap:10px;flex-wrap:wrap}
 .chip{background:#fff;border:1px solid var(--line);border-radius:24px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
@@ -371,9 +373,11 @@ h1{font-size:34px}h2{font-size:26px}
 .pd-info h1{font-size:26px;margin-bottom:10px}
 .pd-badges{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .pd-meta{font-size:13px;color:var(--muted);margin-bottom:16px}
-.pd-price{display:flex;align-items:baseline;gap:12px;margin:14px 0}
+.pd-price{display:flex;align-items:baseline;gap:12px;margin:14px 0 4px}
 .pd-price .now{font-size:32px;font-weight:800}
 .pd-price .old{font-size:18px;color:var(--muted);text-decoration:line-through}
+.pd-percup{font-size:15px;font-weight:700;color:var(--orange-d);margin:0 0 12px}
+.pd-percup small{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:2px}
 .variants{margin:18px 0}
 .variants .vlab{font-size:13px;font-weight:600;margin-bottom:8px}
 .vopts{display:flex;gap:10px;flex-wrap:wrap}
@@ -1534,6 +1538,10 @@ def product_page(card, cards):
             if len(related)>=4: break
     rel_html=''.join(card_html(c) for c in related[:4])
     old = ''
+    # E.S.E.: під ціною упаковки — «грн/чашка» (та сама одиниця, що й на лендингу оренди)
+    percup_html=''
+    if card['type']=='ese' and card.get('per_cup'):
+        percup_html='<div class="pd-percup">≈ %s ₴ за чашку<small>ціна за чашку однакова для коробки 50 і 150 шт</small></div>'%(('%.1f'%card['per_cup']).replace('.',','))
     avail='<span class="in-stock">В наявності</span>' if card['available'] else '<span class="no-stock">Немає в наявності</span>'
     # NPX-017: absolute image URLs, offers.url = canonical, priceValidUntil = build_date+30d
     import datetime as _dt
@@ -1567,6 +1575,7 @@ def product_page(card, cards):
     <h1>{esc(card['title'])}</h1>
     <div class="pd-meta">{avail} · Артикул: {esc(card['vendor_code'] or '—')}</div>
     <div class="pd-price">{old}<span class="now" id="pdPrice">{money(card['price_min'])} ₴</span></div>
+    {percup_html}
     {'<div class="variants"><div class="vlab">Оберіть упаковку:</div><div class="vopts">'+vopts+'</div></div>' if vopts else ''}
     <div class="pd-buy">
       <div class="qty"><button onclick="pdQtyChange(-1)">−</button><input id="pdQty" value="1" readonly><button onclick="pdQtyChange(1)">+</button></div>
@@ -1827,12 +1836,8 @@ def rental_landing(ckey, cards):
     chalds=''.join(card_html(x) for x in ese)
     decaf=next((x for x in ese if x['decaf']), None)
     decaf_link=('p-'+decaf['slug']+'.html') if decaf else 'monodozy-ese.html'
-    # #3: «грн за чашку» з реальних цін монодоз E.S.E. на сайті
-    per=[]
-    for x in ese:
-        q=x['params'].get('Количество в упаковке (шт.)') or x['params'].get('Количество в упаковке')
-        if q and str(q).isdigit() and int(q)>0 and x['price_min']:
-            per.append(x['price_min']/int(q))
+    # #3: «грн за чашку» з реальних цін монодоз E.S.E. (ціна коробки ÷ к-сть у ТІЙ САМІЙ коробці)
+    per=[x['per_cup'] for x in ese if x.get('per_cup')]
     from_cup=int(round(min(per))) if per else None
     cup_note=(f'Кава — <b>від ~{from_cup} грн за чашку</b>. ' if from_cup else '')
     # фото машини (біла — оброблене реальне; чорна поки плейсхолдер)
@@ -1991,16 +1996,13 @@ def rental_hub(cards):
     ese=[x for x in cards if x['type']=='ese'][:5]
     decaf=next((x for x in ese if x['decaf']), None)
     decaf_link=('p-'+decaf['slug']+'.html') if decaf else 'monodozy-ese.html'
-    def per_cup(x):
-        q=x['params'].get('Количество в упаковке (шт.)') or x['params'].get('Количество в упаковке')
-        try: return x['price_min']/int(q) if (q and int(q)>0 and x['price_min']) else None
-        except Exception: return None
-    percs=[p for p in (per_cup(x) for x in ese) if p]
+    percs=[x['per_cup'] for x in ese if x.get('per_cup')]
     from_cup=int(round(min(percs))) if percs else None
     # ---- асортимент чалдів (реальні фото товарів) ----
     def chald_card(x):
-        q=x['params'].get('Количество в упаковке (шт.)') or x['params'].get('Количество в упаковке') or ''
-        pc=per_cup(x); pc_s=('≈ %.1f грн/чашка'%pc).replace('.',',') if pc else ''
+        v0=x['variants'][0]                       # представник = менша коробка; ціна↔кількість з ОДНОГО варіанта
+        q=v0.get('pack') or ''
+        pc=x.get('per_cup'); pc_s=('≈ %.1f грн/чашка'%pc).replace('.',',') if pc else ''
         nm=x['title'].replace('Кава в монодозах NPROMAX ','').split(' стандарту')[0].split(' аромат')[0].strip()
         pm=x['params']; vk=(pm.get('Вид кофе','') or '').lower()
         comp=('Арабіка + робуста' if ('арабик' in vk and 'робуст' in vk) else '100% Арабіка' if 'арабик' in vk else '100% Робуста' if 'робуст' in vk else '')
@@ -2012,7 +2014,7 @@ def rental_hub(cards):
           '<div class="chald-b"><b>%s</b>%s<span class="chald-q">%s шт · %s ₴</span>%s%s</div></a>') % (
           esc(x['slug']), esc(x['image']), esc(nm), esc(nm),
           ('<span class="chald-comp">%s</span>'%esc(comp) if comp else ''),
-          esc(str(q)), money(x['price_min']),
+          esc(str(q)), money(v0['price'] or x['price_min']),
           ('<span class="chald-desc">%s</span>'%esc(sd) if sd else ''),
           ('<span class="chald-pc">%s</span>'%pc_s if pc_s else ''))
     chalds_html=''.join(chald_card(x) for x in ese)
