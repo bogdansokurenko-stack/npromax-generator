@@ -29,16 +29,17 @@ CATS = [
 ]
 CATMAP = {c[0]:c for c in CATS}
 BAND_IMG = {
- 'kava-v-zernakh':'band-beans.jpg','svizhomelena-kava':'band-ground.jpg',
- 'kapsuly-nespresso':'band-espresso.jpg','kapsuly-dolce-gusto':'band-flatwhite.jpg',
- 'napoyi-v-kapsulakh':'band-drinks.jpg','monodozy-ese':'band-portafilter.jpg',
- 'arabika-monosorty':'band-sack.jpg','kavovi-kupazhi':'band-mix.jpg',
- 'kava-bez-kofeinu':'band-decaf.jpg','catalog':'band-texture.jpg','academy':'band-book.jpg',
+ 'kava-v-zernakh':'photos/categories/cat-kava-v-zernakh.jpg','svizhomelena-kava':'photos/categories/cat-svizhomelena-kava.jpg',
+ 'kapsuly-nespresso':'photos/categories/cat-kapsuly-nespresso.jpg','kapsuly-dolce-gusto':'photos/categories/cat-kapsuly-dolce-gusto.jpg',
+ 'napoyi-v-kapsulakh':'photos/categories/cat-napoyi-v-kapsulakh.jpg','monodozy-ese':'photos/categories/cat-monodozy-ese.jpg',
+ 'arabika-monosorty':'photos/categories/cat-arabika-monosorty.jpg','kavovi-kupazhi':'photos/categories/cat-kavovi-kupazhi.jpg',
+ 'kava-dlya-biznesu':'photos/categories/cat-kava-dlya-biznesu.jpg',
+ 'kava-bez-kofeinu':'img/band-decaf.jpg','catalog':'img/band-texture.jpg','academy':'img/band-book.jpg',
 }
 def band_open(key):
     img=BAND_IMG.get(key)
     if img:
-        return f'<div class="cat-band cat-band-photo" style="background-image:linear-gradient(90deg, var(--crema) 40%, rgba(242,231,213,.72) 58%, rgba(242,231,213,.10) 90%), url(&#39;assets/img/{img}&#39;)">'
+        return f'<div class="cat-band cat-band-photo" style="background-image:linear-gradient(90deg, var(--crema) 40%, rgba(242,231,213,.72) 58%, rgba(242,231,213,.10) 90%), url(&#39;assets/{img}&#39;)">'
     return '<div class="cat-band">' 
 NAV = ['kava-v-zernakh','svizhomelena-kava','kapsuly-nespresso','kapsuly-dolce-gusto','monodozy-ese','arabika-monosorty','kava-dlya-biznesu']
 
@@ -124,7 +125,7 @@ def layout(title, desc, body, active='', canonical='', og_image='', og_type='web
 <meta name="twitter:description" content="{esc(desc)}">
 <meta name="twitter:image" content="{esc(og_img)}">
 {og_extra}{fb_verify}<meta name="theme-color" content="#221510">
-{pixel}<link rel="stylesheet" href="assets/style.css?v=10">
+{pixel}<link rel="stylesheet" href="assets/style.css?v=11">
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"NPROMAX","url":"https://www.npromax.com.ua/","email":"info@npromax.com.ua","description":"Інтернет-магазин кави NPROMAX: зернова, свіжомелена, капсульна кава, E.S.E. монодози та рішення для бізнесу.","sameAs":[{sameas}]}}</script>
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"WebSite","name":"NPROMAX","url":"https://www.npromax.com.ua/","inLanguage":"uk-UA","potentialAction":{{"@type":"SearchAction","target":"https://www.npromax.com.ua/catalog.html?q={{search_term_string}}","query-input":"required name=search_term_string"}}}}</script>
 </head>
@@ -294,7 +295,7 @@ h1{font-size:34px}h2{font-size:26px}
 .drawer-in a:hover{background:var(--soft);color:var(--orange)}
 /* hero */
 .hero{background:linear-gradient(95deg, rgba(24,13,7,.95) 0%, rgba(24,13,7,.82) 42%, rgba(24,13,7,.45) 75%, rgba(24,13,7,.30) 100%), url('img/hero-bg.jpg') center right/cover no-repeat var(--espresso);color:#fff;position:relative;overflow:hidden}
-.hero-b2b{background:linear-gradient(95deg, rgba(24,13,7,.95) 0%, rgba(24,13,7,.82) 42%, rgba(24,13,7,.40) 100%), url('img/b2b-hero.jpg') center right/cover no-repeat var(--espresso)}
+.hero-b2b{background:linear-gradient(95deg, rgba(24,13,7,.95) 0%, rgba(24,13,7,.82) 42%, rgba(24,13,7,.40) 100%), url('photos/categories/cat-kava-dlya-biznesu.jpg') center right/cover no-repeat var(--espresso)}
 .hero-in{padding:70px 0 76px;position:relative;z-index:2;max-width:640px}
 .hero .kicker{color:var(--orange);letter-spacing:3px;font-size:13px;font-weight:700;margin-bottom:16px}
 .hero h1{font-size:46px;line-height:1.08;margin-bottom:18px}
@@ -1203,12 +1204,10 @@ def home(cards, counts):
         for c in cards:
             if c not in picks: picks.append(c); break
     picks=picks[:8]
-    HOME_IMG={'kava-v-zernakh':'band-beans.jpg','svizhomelena-kava':'band-ground.jpg',
-     'kapsuly-nespresso':'band-espresso.jpg','kapsuly-dolce-gusto':'band-flatwhite.jpg',
-     'napoyi-v-kapsulakh':'band-drinks.jpg','monodozy-ese':'band-portafilter.jpg',
-     'arabika-monosorty':'band-sack.jpg','kavovi-kupazhi':'band-mix.jpg','kava-dlya-biznesu':'b2b-hero.jpg'}
+    # NPX-034: єдиний набір категорійних зображень (Canva, 28.07.2026)
+    HOME_IMG={c[0]:'cat-'+c[0] for c in CATS}
     cats_html=''.join(f'''<a href="{c[0]}.html" class="cat-card cat-card-img">
-      <div class="cc-img"><img src="assets/img/{HOME_IMG.get(c[0],'band-texture.jpg')}" alt="{esc(c[1])}" loading="lazy"><span class="cc-count">{counts.get(c[0],0)}</span></div>
+      <div class="cc-img"><picture><source srcset="assets/photos/categories/{HOME_IMG.get(c[0],'cat-kava-v-zernakh')}.webp" type="image/webp"><img src="assets/photos/categories/{HOME_IMG.get(c[0],'cat-kava-v-zernakh')}.jpg" alt="{esc(c[1])}" width="1240" height="698" loading="lazy" decoding="async"></picture><span class="cc-count">{counts.get(c[0],0)}</span></div>
       <div class="cc-body"><h3>{esc(c[1])}</h3><p>{esc(c[2])}</p><span class="cat-hint">{esc(c[4])}</span></div></a>''' for c in CATS if c[0]!='kava-bez-kofeinu')
     brews=['Кавомашина','Турка','Гейзерна кавоварка','Френч-прес','Фільтр','Капсульна машина','Офіс']
     brew_dest={'Кавомашина':'kava-v-zernakh','Турка':'svizhomelena-kava','Гейзерна кавоварка':'svizhomelena-kava','Френч-прес':'svizhomelena-kava','Фільтр':'svizhomelena-kava','Капсульна машина':'kapsuly-nespresso','Офіс':'kava-dlya-biznesu'}
