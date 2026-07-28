@@ -64,6 +64,11 @@ ICON = {
  'star':'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#EE7A0E" stroke-width="1.8"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>',
 }
 
+SOCIAL_ICONS={
+ 'facebook':'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.75-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>',
+ 'instagram':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
+ 'youtube':'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 6.5C1 8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12zM9.8 15.3V8.7l6 3.3-6 3.3z"/></svg>'}
+
 def layout(title, desc, body, active='', canonical='', og_image='', og_type='website', og_extra=''):
     navlinks = ''.join(
         f'<a href="{s}.html" class="{"nav-a active" if s==active else "nav-a"}">{CATMAP[s][1] if len(CATMAP[s][1])<20 else CATMAP[s][2].split("—")[0]}</a>'
@@ -97,11 +102,9 @@ def layout(title, desc, body, active='', canonical='', og_image='', og_type='web
           f"fbq('init','{META_PIXEL_ID}');fbq('track','PageView');</script>\n"
           f'<noscript><img height="1" width="1" style="display:none" alt="" '
           f'src="https://www.facebook.com/tr?id={META_PIXEL_ID}&ev=PageView&noscript=1"/></noscript>\n<!-- End Meta Pixel -->\n')
-    _SICON={
-     'facebook':'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.75-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>',
-     'instagram':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
-     'youtube':'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 6.5C1 8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12zM9.8 15.3V8.7l6 3.3-6 3.3z"/></svg>'}
-    social_html=''.join('<a href="%s" class="ft-soc" target="_blank" rel="noopener" aria-label="%s">%s</a>'%(u,k.capitalize(),_SICON.get(k,'')) for k,u in SOCIAL.items() if u)
+    social_html=''.join('<a href="%s" class="ft-soc" target="_blank" rel="noopener" aria-label="%s">%s</a>'%(u,k.capitalize(),SOCIAL_ICONS.get(k,'')) for k,u in SOCIAL.items() if u)
+    tb_social=''.join('<a href="%s" class="tb-soc-a" target="_blank" rel="noopener" aria-label="NPROMAX у %s">%s</a>'%(u,k.capitalize(),SOCIAL_ICONS.get(k,'')) for k,u in SOCIAL.items() if u)
+    tb_social=('<span class="tb-soc">%s</span>'%tb_social) if tb_social else ''
     social_html=('<div class="ft-social">%s</div>'%social_html) if social_html else ''
     return f'''<!DOCTYPE html>
 <html lang="uk">
@@ -138,6 +141,7 @@ def layout(title, desc, body, active='', canonical='', og_image='', og_type='web
       <a href="viber://chat?number=%2B380975751647" rel="nofollow" class="tb-viber">Viber</a>
       <a href="mailto:info@npromax.com.ua" class="tb-mail">info@npromax.com.ua</a>
       <span class="tb-hours">Пн–Пт 9:00–18:00</span>
+      {tb_social}
     </span>
   </div>
 </div>
@@ -252,6 +256,10 @@ h1{font-size:34px}h2{font-size:26px}
 .tb-right a{display:inline-flex;align-items:center;gap:6px}
 .tb-right a:hover{color:#fff}
 .langs b{color:var(--orange)}
+.tb-soc{display:inline-flex;gap:8px;align-items:center}
+.tb-soc-a{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.10);color:#e7dccb;transition:.15s}
+.tb-soc-a svg{width:14px;height:14px}
+.tb-soc-a:hover{background:var(--orange);color:#fff}
 .tb-phone{font-weight:700;color:#fff}
 .tb-viber{color:#c8b8ff;font-weight:700}
 .hd-phone{display:none}
